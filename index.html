@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mano Sporto Programa</title>
+    <!-- Web App Manifest for PWA (Add to Home Screen) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f0f12;
+            --card-bg: #1a1a1f;
+            --primary: #ff2d55; /* Modern Pink/Red */
+            --secondary: #007aff; /* iOS Blue */
+            --accent: #5856d6; /* Purple */
+            --text-main: #ffffff;
+            --text-dim: #a0a0ab;
+            --success: #34c759;
+            --glass: rgba(255, 255, 255, 0.05);
+            --gradient: linear-gradient(135deg, #ff2d55 0%, #5856d6 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Container for mobile feel */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-badge {
+            font-size: 14px;
+            color: var(--text-dim);
+            background: var(--glass);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* Workout Selection Card */
+        .selection-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .selection-card:active {
+            transform: scale(0.96);
+        }
+
+        .selection-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-tag {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        /* Exercise List */
+        .exercise-list {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .exercise-info h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .exercise-info p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .video-btn {
+            background: var(--glass);
+            border: none;
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Modernized Set Tracking */
+        .exercise-sets {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .set-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .set-row.completed {
+            background: rgba(52, 199, 89, 0.1);
+            border-color: rgba(52, 199, 89, 0.3);
+        }
+
+        .set-info {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dim);
+            min-width: 60px;
+        }
+
+        .set-input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .set-input {
+            width: 70px;
+            background: #25252b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px;
+            color: var(--text-main);
+            text-align: center;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .set-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            accent-color: var(--success);
+            cursor: pointer;
+        }
+
+        /* Bottom Action Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 460px;
+            background: rgba(26, 26, 31, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-dim);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .primary-btn {
+            background: var(--gradient);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 45, 85, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .primary-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .view-section {
+            animation: slideUp 0.4s ease-out forwards;
+        }
+
+        /* Timer Overlay */
+        #timer-overlay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: none;
+            z-index: 200;
+            box-shadow: 0 5px 15px rgba(255, 45, 85, 0.4);
+        }
+
+        /* Modal for Videos (Optional or Link out) */
+        .hidden { display: none !important; }
+
+    </style>
+</head>
+<body>
+
+<div id="timer-overlay">Poilsis: <span id="timer-val">60</span>s</div>
+
+<div class="app-container" id="app-home">
+    <header>
+        <div>
+            <h1>Mano Programėlė</h1>
+            <div class="date-badge" id="current-date">Sveiki sugrįžę!</div>
+        </div>
+    </header>
+
+    <div id="home-view" class="view-section">
+        <!-- NAUJA: INSTRUKCIJOS PRADEDANTIESIEMS -->
+        <div class="glass-card" style="margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--accent);">
+            <h3 style="margin-top: 0; color: var(--accent); font-size: 18px;">Pradžia</h3>
+            <div style="font-size: 13px; line-height: 1.5;">
+                <strong>Kaip naudotis?</strong>
+                <ul style="padding-left: 18px; margin: 8px 0;">
+                    <li>Pradėkite nuo <strong>Apšilimo</strong> (žiūrėkite žemiau).</li>
+                    <li>Rinkitės <strong>Treniruotę A arba B</strong> (keiskite jas kas antrą kartą).</li>
+                    <li>Svorį rinkitės tokį, kad atlikus 10-12 kartų, dar galėtumėte padaryti 1-2, bet ne daugiau.</li>
+                    <li>Ilsėkitės 60–90 sek. tarp serijų (programėlė parodys laikmatį).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NAUJA: APŠILIMAS -->
+        <div style="margin-bottom: 25px;">
+            <h2 style="font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--primary)">🔥</span> 1 žingsnis: Apšilimas (10-15 min.)
+            </h2>
+            <div class="exercise-card" style="gap: 10px;">
+                <div style="font-size: 14px;">
+                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>1. Kardio (5-7 min.):</strong> Lėtas bėgimas, dviratis arba ėjimas įkalne.</span>
+                        <a href="https://www.youtube.com/watch?v=vKs3cUtTTn0" target="_blank" class="video-btn" style="padding: 4px 8px;">▶ Video</a>
+                    </div>
+                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>2. Sąnariai (3 min.):</strong> Sukamieji judesiai kaklu, pečiais, riešais, klubais, keliais ir kulkšnimis.</span>
+                        <a href="https://www.youtube.com/watch?v=R0mMyV5OtcM" target="_blank" class="video-btn" style="padding: 4px 8px;">▶ Video</a>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>3. Dinaminis tempimas:</strong> Keletas įtupstų be svorio, kojų mostai, rankų sukimai "malūnėliu".</span>
+                        <a href="https://www.youtube.com/results?search_query=5+minute+dynamic+stretching+warm+up" target="_blank" class="video-btn" style="padding: 4px 8px;">▶ Video</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="font-size: 18px; margin-bottom: 15px; color: var(--text-dim);">2 žingsnis: Pasirinkite dienos treniruotę</h2>
+        
+        <div id="card-A" class="selection-card" onclick="startWorkout('A')">
+            <div class="card-content">
+                <span id="badge-A" style="float: right; font-size: 10px; background: var(--primary); color: white; padding: 2px 8px; border-radius: 10px; display: none;">REKOMENDUOJAMA</span>
+                <span class="card-tag">Treniruotė A</span>
+                <div class="card-title">Kojos + Stūmimas</div>
+                <div class="card-desc">Sėdmenys, Keturgalviai, Krūtinė, Pečiai, Pilvas</div>
+            </div>
+        </div>
+
+        <div id="card-B" class="selection-card" onclick="startWorkout('B')">
+            <div class="card-content" style="--primary: var(--secondary)">
+                <span id="badge-B" style="float: right; font-size: 10px; background: var(--secondary); color: white; padding: 2px 8px; border-radius: 10px; display: none;">REKOMENDUOJAMA</span>
+                <span class="card-tag" style="color: var(--secondary)">Treniruotė B</span>
+                <div class="card-title">Nugara + Tempimas</div>
+                <div class="card-desc">Vertikalios traukos, Mirties trauka, Glute bridge, Pilvas</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <p style="color: var(--text-dim); font-size: 13px;">Praeitą kartą: <span id="last-workout-info">Pirma treniruotė!</span></p>
+        </div>
+    </div>
+
+    <div id="workout-view" class="view-section hidden">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <button onclick="goHome()" style="background: none; border: none; color: var(--text-dim); font-size: 24px; cursor: pointer;">←</button>
+            <h2 id="workout-title" style="margin: 0; font-size: 20px;">Treniruotė A</h2>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <div id="exercise-container" class="exercise-list" style="display: flex;">
+            <!-- Exercises will be injected here -->
+        </div>
+
+        <button class="primary-btn" onclick="finishWorkout()">Baigti treniruotę</button>
+        <div style="height: 100px;"></div> <!-- Bottom spacer -->
+    </div>
+
+    <!-- NAUJA: LAIKYSENOS SKILTIS -->
+    <div id="posture-view" class="view-section hidden">
+        <h2 style="font-size: 22px; margin-bottom: 20px; color: var(--accent);">🧘 Laikysenos gerinimas</h2>
+        
+        <!-- RYTINĖ MANKŠTA -->
+        <div class="glass-card" style="margin-bottom: 25px; padding: 20px; border-left: 4px solid #ffcc00; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="margin-top: 0; color: #ffcc00; font-size: 18px;">🌅 Rytinė mankšta namie (7-10 min.)</h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">Švelnus, bet gilus stuburo pažadinimas ir viso kūno mobilumo atkūrimas rytui.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">1. Katė-Karvė (10 k.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=cat+cow+stretch+form" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Atsirėmę keturpėsčia, liesdami kelius, rėskite nugarą į viršų (katė), o tada leiskite žemyn (karvė). Puikus būdas išjudinti stuburą.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">2. Vaiko poza (45 sek.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=childs+pose+stretch+form" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Klūpėdami atsisėskite ant kulnų, rankas gerai ištieskite į priekį ir atsipalaiduokite ant grindų. Pajuskite ilgą tempimą nugaroje.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">3. Rankų sukimai („malūnėlis“)</strong>
+                        <a href="https://www.youtube.com/results?search_query=arm+circles+warm+up+form" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Lėtai, plačiu lanku sukite ištiestas rankas (10 k. pirmyn, 10 k. atgal), kad atvertumėte krūtinę ir prabudintumėte pečių sąnarius.</span>
+                </div>
+                <!-- NAUJI RYTINIAI PRATIMAI -->
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">4. Paukštis-Šuo (Bird-Dog)</strong>
+                        <a href="https://www.youtube.com/results?search_query=bird+dog+exercise+form" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Keturpėsčia ištieskite priešingą ranką ir koją vienu metu. Išlaikykite pusiausvyrą, o nugarą tiesią (10 k. kiekvienai pusei). Stirprina core ir nugarą.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">5. Klubų atvėrimas (Įtūpstas)</strong>
+                        <a href="https://www.youtube.com/results?search_query=worlds+greatest+stretch+posture" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Iš gilaus įtūpsto pozicijos sukamės liemeniu ir tiesiame vieną ranką į lubas. Atveria sustingusius klubus ir krūtinę (po 5 k. pusei).</span>
+                </div>
+                <!-- RYTINĖS PAŽYMĖJIMO MYGTUKAS -->
+                <button class="primary-btn" style="margin-top: 5px; padding: 12px; font-size: 14px; background: rgba(52, 199, 89, 0.1); color: var(--success); border: 1px solid rgba(52, 199, 89, 0.3); box-shadow: none;" onclick="logPosture('Rytinė mankšta')">✅ Pažymėti kaip atliktą</button>
+            </div>
+        </div>
+
+        <!-- BIURO HEROJUS (PERTARUKĖLĖMS DARBE) -->
+        <div class="glass-card" style="margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--secondary); background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="margin-top: 0; color: var(--secondary); font-size: 18px;">💻 Darbo pertraukėlėms (5 min.)</h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">Šie pratimai daromi tiesiog prie stalo. Jie atpalaiduoja kaklą po žiūrėjimo į ekraną ir kovoja su „vėžlio kaklu“.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">1. Smakro įtraukimas (10 k.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=chin+tucks+posture+exercise" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Sėdėkite tiesiai, stumkite smakrą atgal tarsi darytumėte „dvigubą pagurklį“. Pajuskite tempimą pakaušyje.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">2. Menčių suvedimas (10 k.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=scapular+retractions+desk+stretch" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Sėdint nuleiskite pečius žemyn ir mentis stipriai suveskite kartu. Užlaikykite jėgą 3 sekundes ir atleiskite.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">3. Stuburo pasukimas kėdėje</strong>
+                        <a href="https://www.youtube.com/results?search_query=seated+spinal+twist+chair+stretch" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Sėdėdami tiesiai, viena ranka įsikibkite į kėdės atlošą ir pasisukite liemeniu. Užlaikykite po 10 sek. abiem pusėm.</span>
+                </div>
+                <!-- NAUJI BIURO PRATIMAI -->
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">4. Kaklo tempimas į šonus</strong>
+                        <a href="https://www.youtube.com/results?search_query=neck+stretch+desk+posture" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Švelniai lenkite galvą prie peties atpalaiduodami įtampą kakle. Viena ranka galite švelniai paspausti. Laikykite 30 sek. kiekvienai pusei.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">5. Krūtinės atvėrimas atloše</strong>
+                        <a href="https://www.youtube.com/results?search_query=seated+chest+stretch+desk" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Sunerkite rankas už nugaros arba ištieskite jas atgal krūtinę stumdami stipriai į priekį. Pagerina kvėpavimą sutrauktoje pozoje (10 sek. x 3 kartai).</span>
+                </div>
+                <!-- DARBO PAŽYMĖJIMO MYGTUKAS -->
+                <button class="primary-btn" style="margin-top: 5px; padding: 12px; font-size: 14px; background: rgba(52, 199, 89, 0.1); color: var(--success); border: 1px solid rgba(52, 199, 89, 0.3); box-shadow: none;" onclick="logPosture('Darbo pertraukėlė')">✅ Pažymėti kaip atliktą</button>
+            </div>
+        </div>
+
+        <!-- VAKARINĖ MANKŠTA (TIESINIMAS) -->
+        <div class="glass-card" style="margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--primary); background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="margin-top: 0; color: var(--primary); font-size: 18px;">🌙 Vakarinė laikysenos korekcija (10 min.)</h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">Intensyvesni ir labai efektyvūs pratimai, skirti pilnam krūtinės ląstos ištiesinimui bei „našlės kupros“ vizualiniam mažinimui.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">1. „Sienos skaidrės“ (15 k.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=wall+slides+posture+exercise" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Atsiremkite nugara užpakaliu bei pirštais į sieną. Rankas laikykite 'W' pozoje, lėtai jas stumkite viršun neatplėšiant dilbių nuo sienos.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">2. Krūtinės tempimas staktoje</strong>
+                        <a href="https://www.youtube.com/results?search_query=doorway+chest+stretch" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Įsikibkite į durų staktą alkūnių lygyje. Ženkite lengvą žingsnį į priekį ir pajuskite tempimą (30 sek). Tai kovoja su suapvalėjusiais pečiais į priekį.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">3. Gulėjimas su voleliu</strong>
+                        <a href="https://www.youtube.com/results?search_query=foam+roller+thoracic+extension+posture" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Jei turite kietą jogos volelį (ar didelį rankšluostį), pasidėkite po viršutine nugaros dalimi ir švelniai išrieskite krūtinę 2-3 min.</span>
+                </div>
+                <!-- NAUJI VAKARINIAI PRATIMAI -->
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">4. Y-T-W-L gulint (15 k.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=prone+ytwl+posture+exercise" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Atsigulus ant pilvo pilnai ištiesti rankas pirmyn (Y), paskui į šonus (T), lenkti į raidelę (W) ir prispausti prie pusių (L). Pats stipriausias pratimas „našlės kupros“ tirpdymui.</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+                        <strong style="font-size: 14px;">5. „Kobra“ (30 sek.)</strong>
+                        <a href="https://www.youtube.com/results?search_query=cobra+stretch+posture" target="_blank" class="video-btn" style="padding: 4px 8px; margin-left: 10px;">▶ Video</a>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-dim);">Gulėdami ant pilvo, remkitės delnais šalia krūtinės ir lėtai kelkite viršutinę kūno dalį aukštyn. Ištiesina stuburą ir išilginį nugaros raumenyną.</span>
+                </div>
+                <!-- VAKARINĖS PAŽYMĖJIMO MYGTUKAS -->
+                <button class="primary-btn" style="margin-top: 5px; padding: 12px; font-size: 14px; background: rgba(52, 199, 89, 0.1); color: var(--success); border: 1px solid rgba(52, 199, 89, 0.3); box-shadow: none;" onclick="logPosture('Vakarinė mankšta')">✅ Pažymėti kaip atliktą</button>
+            </div>
+        </div>
+        
+        <div style="height: 100px;"></div>
+    </div>
+
+    <!-- ISTORIJOS SKILTIS -->
+    <div id="history-view" class="view-section hidden">
+        <h2 style="font-size: 22px; margin-bottom: 20px; color: var(--success);">📅 Treniruočių istorija</h2>
+        <div id="history-container" style="display: flex; flex-direction: column; gap: 15px;">
+            <!-- History items will be injected here -->
+        </div>
+        <div style="height: 100px;"></div>
+    </div>
+
+    <!-- APAČIOS NAVIGACIJA -->
+    <nav class="bottom-nav">
+        <a href="javascript:void(0)" class="nav-item active" id="nav-home" onclick="showView('home-view')">
+            <span style="font-size: 20px;">💪</span>
+            <span>Sportas</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item" id="nav-posture" onclick="showView('posture-view')">
+            <span style="font-size: 20px;">🧘</span>
+            <span>Laikysena</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-item" id="nav-history" onclick="showView('history-view')">
+            <span style="font-size: 20px;">📅</span>
+            <span>Istorija</span>
+        </a>
+    </nav>
+</div>
+
+<script>
+    const workouts = {
+        'A': [
+            { name: 'Kojų presas', gear: 'Treniruoklis', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=leg+press+form+tutorial' },
+            { name: 'Krūtinės spaudimas', gear: 'Treniruoklis', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=machine+chest+press+form+tutorial' },
+            { name: 'Įtūpstai', gear: 'Hanteliai', sets: 3, reps: '10 (kojai)', isWeight: true, video: 'https://www.youtube.com/results?search_query=dumbbell+lunges+form+tutorial' },
+            { name: 'Pečių spaudimas', gear: 'Hanteliai', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=dumbbell+shoulder+press+form+tutorial' },
+            { name: 'Atsilenkimai', gear: 'Suoliukas', sets: 3, reps: '15', isWeight: false, video: 'https://www.youtube.com/results?search_query=decline+bench+crunch+form+tutorial' },
+            { name: 'Lenta (Plank)', gear: 'Kilimėlis', sets: 3, reps: '45 sek.', isWeight: false, video: 'https://www.youtube.com/results?search_query=plank+exercise+form+tutorial' }
+        ],
+        'B': [
+            { name: 'Vertikali trauka', gear: 'Treniruoklis', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=lat+pulldown+form+tutorial' },
+            { name: 'Rumuniška trauka', gear: 'Hanteliai/Štanga', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=dumbbell+RDL+form+tutorial' },
+            { name: 'Horizontali trauka', gear: 'Sėdint', sets: 3, reps: '10-12', isWeight: true, video: 'https://www.youtube.com/results?search_query=seated+cable+row+form+tutorial' },
+            { name: 'Klubų kėlimas su svoriu', gear: 'Svoriai', sets: 3, reps: '12-15', isWeight: true, video: 'https://www.youtube.com/results?search_query=weighted+glute+bridge+form+tutorial' },
+            { name: 'Kojų kėlimas kybant', gear: 'Skersinis', sets: 3, reps: '10-12', isWeight: false, video: 'https://www.youtube.com/results?search_query=hanging+leg+raises+form+tutorial' },
+            { name: 'Russian Twist', gear: 'Svoris (nebūtina)', sets: 3, reps: '20', isWeight: false, video: 'https://www.youtube.com/results?search_query=russian+twist+form+tutorial' }
+        ]
+    };
+
+    let currentWorkoutType = '';
+    let workoutHistory = JSON.parse(localStorage.getItem('workout_history') || '[]');
+
+    // Initialize current date
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('lt-LT', options);
+
+    function updateLastWorkoutInfo() {
+        const mainWorkouts = workoutHistory.filter(h => h.type === 'A' || h.type === 'B');
+        let nextType = 'A';
+        if (mainWorkouts.length > 0) {
+            const last = mainWorkouts[mainWorkouts.length - 1];
+            const dateStr = new Date(last.date).toLocaleDateString('lt-LT');
+            document.getElementById('last-workout-info').textContent = `${dateStr} (Treniruotė ${last.type})`;
+            nextType = (last.type === 'A') ? 'B' : 'A';
+        } else {
+            document.getElementById('last-workout-info').textContent = 'Pirma treniruotė!';
+        }
+
+        // Show recommendation badges
+        document.getElementById('badge-A').style.display = (nextType === 'A') ? 'block' : 'none';
+        document.getElementById('card-A').style.border = (nextType === 'A') ? '1px solid var(--primary)' : '1px solid rgba(255, 255, 255, 0.1)';
+        document.getElementById('card-A').style.opacity = (nextType === 'A') ? '1' : '0.7';
+
+        document.getElementById('badge-B').style.display = (nextType === 'B') ? 'block' : 'none';
+        document.getElementById('card-B').style.border = (nextType === 'B') ? '1px solid var(--secondary)' : '1px solid rgba(255, 255, 255, 0.1)';
+        document.getElementById('card-B').style.opacity = (nextType === 'B') ? '1' : '0.7';
+    }
+    updateLastWorkoutInfo();
+
+    function startWorkout(type) {
+        currentWorkoutType = type;
+        showView('workout-view');
+        document.getElementById('workout-title').textContent = type === 'A' ? 'Treniruotė A' : 'Treniruotė B';
+        
+        const container = document.getElementById('exercise-container');
+        container.innerHTML = '';
+        
+        // Find previous weights for THIS type
+        const prevSession = workoutHistory.slice().reverse().find(h => h.type === type);
+        
+        workouts[type].forEach((ex, idx) => {
+            const card = document.createElement('div');
+            card.className = 'exercise-card';
+            
+            let prevWeights = ['', '', ''];
+            if (prevSession && prevSession.exercises[idx]) {
+                prevWeights = prevSession.exercises[idx].weights;
+            }
+
+            let setsHtml = '<div class="exercise-sets" id="track-' + idx + '">';
+            for(let i = 0; i < ex.sets; i++) {
+                let prevVal = prevWeights[i] || '';
+                
+                setsHtml += `
+                    <div class="set-row">
+                        <span class="set-info">${i + 1} serija</span>
+                        <div class="set-input-group">
+                            ${ex.isWeight ? `<input type="number" class="set-input" placeholder="${prevVal ? prevVal + ' kg' : 'Svoris'}" value="${prevVal}">` : ''}
+                            <input type="checkbox" class="custom-checkbox" onchange="markSetDone(this)">
+                        </div>
+                    </div>
+                `;
+            }
+            setsHtml += '</div>';
+
+            card.innerHTML = `
+                <div class="exercise-header">
+                    <div class="exercise-info">
+                        <h3>${ex.name}</h3>
+                        <p>${ex.gear} • ${ex.reps}</p>
+                    </div>
+                    <a href="${ex.video}" target="_blank" class="video-btn">
+                        <span>▶</span> Video
+                    </a>
+                </div>
+                ${setsHtml}
+            `;
+            container.appendChild(card);
+        });
+        window.scrollTo(0,0);
+    }
+
+    function goHome() {
+        showView('home-view');
+    }
+
+    function showView(viewId) {
+        // Slėpti visus vaizdus
+        const views = document.querySelectorAll('.view-section');
+        views.forEach(v => v.classList.add('hidden'));
+
+        // Rodyti pasirinktą
+        document.getElementById(viewId).classList.remove('hidden');
+
+        // Atnaujinti navigaciją (jei ne treniruotės režime)
+        if (viewId !== 'workout-view') {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (viewId === 'home-view') document.getElementById('nav-home').classList.add('active');
+            if (viewId === 'posture-view') document.getElementById('nav-posture').classList.add('active');
+            if (viewId === 'history-view') document.getElementById('nav-history').classList.add('active');
+            document.querySelector('.bottom-nav').style.display = 'flex';
+        } else {
+            document.querySelector('.bottom-nav').style.display = 'none';
+        }
+        
+        if (viewId === 'history-view') {
+            renderHistory();
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    function finishWorkout() {
+        const exerciseInputs = document.querySelectorAll('.exercise-card');
+        const sessionData = {
+            date: new Date().toISOString(),
+            type: currentWorkoutType,
+            exercises: []
+        };
+
+        exerciseInputs.forEach((card, idx) => {
+            const numberInputs = card.querySelectorAll('input[type="number"]');
+            const checkboxInputs = card.querySelectorAll('input[type="checkbox"]');
+            
+            let storedData = [];
+            if (numberInputs.length > 0) {
+                storedData = Array.from(numberInputs).map(i => {
+                    let val = i.value || i.placeholder.replace('kg', '').trim();
+                    return val === 'Svoris' ? '' : val;
+                });
+            } else {
+                storedData = Array.from(checkboxInputs).map(i => i.checked ? '✓' : '');
+            }
+
+            sessionData.exercises.push({
+                name: workouts[currentWorkoutType][idx].name,
+                weights: storedData
+            });
+        });
+
+        workoutHistory.push(sessionData);
+        localStorage.setItem('workout_history', JSON.stringify(workoutHistory));
+        
+        alert('Šaunuolė! Treniruotė baigta. Jūsų progresas išsaugotas.');
+        updateLastWorkoutInfo();
+        goHome();
+    }
+
+    function logPosture(name) {
+        const sessionData = {
+            date: new Date().toISOString(),
+            type: name,
+            exercises: []
+        };
+        workoutHistory.push(sessionData);
+        localStorage.setItem('workout_history', JSON.stringify(workoutHistory));
+        alert('Šaunuolė! ' + name + ' įtraukta į jūsų istoriją.');
+    }
+
+    function renderHistory() {
+        const container = document.getElementById('history-container');
+        container.innerHTML = '';
+        if (workoutHistory.length === 0) {
+            container.innerHTML = '<p style="color: var(--text-dim); text-align: center;">Dar neatlikote jokių treniruočių.</p>';
+            return;
+        }
+
+        const reversed = [...workoutHistory].reverse();
+        reversed.forEach(item => {
+            const dateObj = new Date(item.date);
+            const dateStr = dateObj.toLocaleDateString('lt-LT', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            
+            let cardColor = 'var(--success)';
+            let typeName = item.type;
+            if(item.type === 'A') { cardColor = 'var(--primary)'; typeName = 'Treniruotė A'; }
+            if(item.type === 'B') { cardColor = 'var(--secondary)'; typeName = 'Treniruotė B'; }
+            if(item.type === 'Rytinė mankšta') { cardColor = '#ffcc00'; }
+
+            const card = document.createElement('div');
+            card.className = 'glass-card';
+            card.style.cssText = `padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-left: 4px solid ${cardColor};`;
+            
+            card.innerHTML = `
+                <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 5px;">${dateStr}</div>
+                <strong style="display: block; font-size: 16px; color: ${cardColor};">${typeName}</strong>
+                ${item.exercises && item.exercises.length > 0 ? `<div style="font-size: 12px; color: var(--text-dim); margin-top: 5px;">Atlikta pratimų: ${item.exercises.length}</div>` : ''}
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function markSetDone(checkbox) {
+        const row = checkbox.closest('.set-row');
+        if (checkbox.checked) {
+            row.classList.add('completed');
+            startTimer();
+        } else {
+            row.classList.remove('completed');
+            // optionally stop timer or do nothing
+        }
+    }
+
+    let timerInterval;
+    function startTimer() {
+        const overlay = document.getElementById('timer-overlay');
+        const valSpan = document.getElementById('timer-val');
+        overlay.style.display = 'block';
+        
+        clearInterval(timerInterval);
+        let count = 60;
+        valSpan.textContent = count;
+        
+        timerInterval = setInterval(() => {
+            count--;
+            valSpan.textContent = count;
+            if (count <= 0) {
+                clearInterval(timerInterval);
+                overlay.style.display = 'none';
+                if (navigator.vibrate) navigator.vibrate(200);
+            }
+        }, 1000);
+    }
+
+    // Inicializacija
+
+    showView('home-view');
+</script>
+
+</body>
+</html>
