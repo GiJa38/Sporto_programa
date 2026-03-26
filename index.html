@@ -572,6 +572,20 @@
         <div id="history-container" style="display: flex; flex-direction: column; gap: 15px;">
             <!-- History items will be injected here -->
         </div>
+        
+        <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <p style="font-size: 12px; color: var(--text-dim); text-align: center; margin-bottom: 15px;">
+                Visi jūsų duomenys yra privatūs ir saugomi tik jame telefone. Norėdami neprarasti duomenų keičiant telefoną ar išvalius naršyklę, reguliariai parsisiųskite atsarginę kopiją.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="exportData()" class="primary-btn" style="flex: 1; font-size: 14px; padding: 12px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2); box-shadow: none;">📥 Atsisiųsti kopiją</button>
+                <label class="primary-btn" style="flex: 1; font-size: 14px; padding: 12px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2); text-align: center; cursor: pointer; box-shadow: none;">
+                    📤 Įkelti kopiją
+                    <input type="file" onchange="importData(event)" accept=".json" style="display: none;">
+                </label>
+            </div>
+        </div>
+
         <div style="height: 100px;"></div>
     </div>
 
@@ -836,9 +850,69 @@
         }, 1000);
     }
 
+    // --- DUOMENŲ APSAUGA ---
+    function exportData() {
+        if(workoutHistory.length === 0) {
+            alert("Nėra jokių duomenų išsaugojimui!");
+            return;
+        }
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(workoutHistory));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "sporto_programa_istorija.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+
+    function importData(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                if (Array.isArray(importedData)) {
+                    workoutHistory = importedData;
+                    localStorage.setItem('workout_history', JSON.stringify(workoutHistory));
+                    renderHistory();
+                    updateLastWorkoutInfo();
+                    alert('Duomenys sėkmingai atkurti iš failo!');
+                } else {
+                    alert('Neteisingas failo formatas.');
+                }
+            } catch (err) {
+                alert('Nepavyko perskaityti failo.');
+            }
+            // Reset input
+            event.target.value = '';
+        };
+        reader.readAsText(file);
+    }
+
     // Inicializacija
 
     showView('home-view');
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        console.log('SW registered!', reg);
+        reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New update available, reload page to apply
+                    window.location.reload();
+                }
+            };
+        };
+      }).catch(err => console.log('SW registration failed: ', err));
+    });
+  }
 </script>
 
 </body>
