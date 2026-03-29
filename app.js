@@ -484,10 +484,10 @@ function renderHistory() {
         return;
     }
 
-    const reversed = [...workoutHistory].reverse();
+    const reversed = workoutHistory.map((item, index) => ({ item, index })).reverse();
     let currentGroupDate = '';
     
-    reversed.forEach(item => {
+    reversed.forEach(({ item, index }) => {
         const dateObj = new Date(item.date);
         const logDateStr = dateObj.toLocaleDateString('lt-LT', { month: 'long', day: 'numeric' });
         const timeStr = dateObj.toLocaleTimeString('lt-LT', { hour: '2-digit', minute: '2-digit' });
@@ -516,7 +516,15 @@ function renderHistory() {
             
             const minorCard = document.createElement('div');
             minorCard.style.cssText = `background: rgba(255,255,255,0.02); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);`;
-            minorCard.innerHTML = `<span style="font-size: 14px; color: var(--text-dim);"><i data-lucide="check" style="width:14px; color:var(--success);"></i> ${label}</span> <span style="font-size: 12px; color: rgba(255,255,255,0.3);">${timeStr}</span>`;
+            minorCard.innerHTML = `
+                <span style="font-size: 14px; color: var(--text-dim);"><i data-lucide="check" style="width:14px; color:var(--success);"></i> ${label}</span> 
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size: 12px; color: rgba(255,255,255,0.3);">${timeStr}</span>
+                    <button onclick="deleteHistoryItem(${index})" style="background:transparent; border:none; color:var(--danger); padding:0; cursor:pointer; display:flex; align-items:center;">
+                        <i data-lucide="trash-2" class="lucide-sm"></i>
+                    </button>
+                </div>
+            `;
             container.appendChild(minorCard);
             return;
         }
@@ -538,7 +546,12 @@ function renderHistory() {
                     <i data-lucide="${iconName}" class="lucide-sm"></i>
                     ${typeName}
                 </strong>
-                <span style="font-size: 12px; color: var(--text-dim);">${timeStr}</span>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size: 12px; color: var(--text-dim);">${timeStr}</span>
+                    <button onclick="deleteHistoryItem(${index})" style="background:transparent; border:none; color:var(--danger); padding:0; cursor:pointer; display:flex; align-items:center;">
+                        <i data-lucide="trash-2" class="lucide-sm"></i>
+                    </button>
+                </div>
             </div>
             ${item.exercises && item.exercises.length > 0 ? `<div style="font-size: 13px; color: var(--text-dim);">Aktyvūs pratimai: ${setsCount}/${item.exercises.length}</div>` : ''}
         `;
@@ -579,6 +592,15 @@ function startTimer() {
             if(navigator.vibrate) navigator.vibrate(200);
         }
     }, 1000);
+}
+
+function deleteHistoryItem(index) {
+    if (confirm('Ar tikrai norite ištrinti šį įrašą?')) {
+        workoutHistory.splice(index, 1);
+        localStorage.setItem('workout_history', JSON.stringify(workoutHistory));
+        renderHistory();
+        checkDailyHabits();
+    }
 }
 
 function exportData() {
