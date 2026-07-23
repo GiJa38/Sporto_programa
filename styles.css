@@ -247,3 +247,151 @@ header { display: flex; flex-direction: column; align-items: center; gap: 12px; 
 
 @keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .view-section { animation: fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+/* Weekly Schedule Grid */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+.schedule-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 10px 2px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.schedule-day:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.schedule-day.active {
+    border-color: var(--success);
+    background: rgba(50, 215, 75, 0.05);
+}
+.schedule-day.today {
+    box-shadow: 0 0 10px rgba(94, 92, 230, 0.2);
+    border-color: var(--accent);
+}
+.schedule-day.selected {
+    border-color: var(--primary);
+    background: rgba(94, 92, 230, 0.08);
+    box-shadow: 0 0 12px rgba(94, 92, 230, 0.2);
+}
+.schedule-day-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+.schedule-day.today .schedule-day-name {
+    color: var(--accent);
+}
+.schedule-day-indicators {
+    display: flex;
+    gap: 3px;
+    margin: 4px 0;
+}
+.ind-dot {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.15);
+    transition: var(--transition);
+}
+.ind-dot svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 3;
+}
+.ind-dot.done.morning {
+    color: var(--warning);
+}
+.ind-dot.done.evening {
+    color: var(--primary);
+}
+.ind-dot.done.strength {
+    color: var(--success);
+}
+.schedule-day-workout-tag {
+    font-size: 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.schedule-day.active .schedule-day-workout-tag {
+    color: var(--success);
+}
+
+/* Monthly Challenge Grid */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+.challenge-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    transition: var(--transition);
+}
+.challenge-day.completed {
+    background: linear-gradient(135deg, rgba(50, 215, 75, 0.15) 0%, rgba(50, 215, 75, 0.3) 100%);
+    border-color: var(--success);
+    color: var(--success);
+    box-shadow: 0 0 10px rgba(50, 215, 75, 0.15);
+}
+.challenge-day.today {
+    border-color: var(--accent);
+    color: var(--text-main);
+}
+
+/* Collapsible Cards */
+.collapsible-card {
+    transition: var(--transition);
+}
+.collapse-icon {
+    transition: transform var(--transition);
+}
+.collapsible-card.open .collapse-icon {
+    transform: rotate(180deg);
+}
+.done-check-btn {
+    border-radius: 8px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-dim);
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.done-check-btn.done {
+    background: rgba(50, 215, 75, 0.15) !important;
+    color: var(--success) !important;
+    border-color: var(--success) !important;
+}

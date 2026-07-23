@@ -26,11 +26,7 @@
     <nav class="top-nav" id="top-nav-bar">
         <a href="javascript:void(0)" class="nav-tab active" id="nav-home" onclick="showView('home-view')">
             <i data-lucide="dumbbell" class="lucide-sm"></i>
-            <span>Jėga</span>
-        </a>
-        <a href="javascript:void(0)" class="nav-tab" id="nav-posture" onclick="showView('posture-view')">
-            <i data-lucide="sun" class="lucide-sm"></i>
-            <span>Rutina</span>
+            <span>Dienos Planas</span>
         </a>
         <a href="javascript:void(0)" class="nav-tab" id="nav-history" onclick="showView('history-view')">
             <i data-lucide="bar-chart-2" class="lucide-sm"></i>
@@ -42,108 +38,38 @@
     <div id="home-view" class="view-section">
         <header>
             <div class="date-badge" id="current-date">Šiandien</div>
-            <div class="text-center">
-                <div class="weekly-progress-stats text-dim" style="font-size: 13px;">0 treniruotės per 7 dienas</div>
-                <div class="weekly-progress-bar">
-                    <div class="dow-indicator">P</div><div class="dow-indicator">A</div><div class="dow-indicator">T</div>
-                    <div class="dow-indicator">K</div><div class="dow-indicator">P</div><div class="dow-indicator">Š</div>
-                    <div class="dow-indicator">S</div>
-                </div>
-            </div>
+            <div class="weekly-progress-stats text-dim mt-1" style="font-size: 13px;">0 treniruotės šią savaitę</div>
         </header>
 
-        <!-- Jėgos Treniruotės Namuose -->
-        <h2 class="section-title text-success"><i data-lucide="home"></i> Jėgos Treniruotės (3x per savaitę)</h2>
-
-        <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 12px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_1'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('NAMAI_1')"><i data-lucide="arrow-down" class="text-success lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('NAMAI_1')">
-                <div class="card-title text-success">1 DIENA: Apatinė dalis & Sėdmenys</div>
-                <div class="card-desc">Pritūpimai, sėdmenų tiltas, šoninis kėlimas, įtūpstai atgal ir donkey kicks.</div>
+        <!-- SAVAITĖS TVARKARAŠTIS -->
+        <div class="glass-card mb-3" style="padding: 16px;">
+            <h3 class="section-title text-gradient" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;"><i data-lucide="calendar"></i> Savaitės Planas</h3>
+            <div class="schedule-grid" id="weekly-schedule-grid">
+                <!-- Injected via app.js -->
             </div>
         </div>
 
-        <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 12px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_2'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('NAMAI_2')"><i data-lucide="target" class="text-success lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('NAMAI_2')">
-                <div class="card-title text-success">2 DIENA: Viršutinė dalis & Krūtinė</div>
-                <div class="card-desc">Svarelių spaudimas, atsispaudimai, trauka, bicepso ir tricepso tiesimas.</div>
+        <!-- ŠIANDIENOS VEIKLA -->
+        <h2 class="section-title text-success" style="margin-top: 24px; font-size: 16px;"><i data-lucide="check-circle"></i> Šiandienos Užduotys</h2>
+
+        <!-- 1. RYTINĖ MANKŠTA -->
+        <div class="glass-card collapsible-card" id="card-rytine" style="border-left: 4px solid var(--warning); padding: 16px; margin-bottom: 12px;">
+            <div class="card-header flex justify-between items-center" onclick="toggleCollapse('rytine')" style="cursor: pointer;">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="sun" class="text-warning lucide-lg"></i>
+                    <div>
+                        <h3 class="m-0" style="font-size: 15px; font-weight: 700;">🌅 Rytinė Mankšta</h3>
+                        <p class="text-dim m-0" style="font-size: 11px;">Rutina kūno pažadinimui (~7 min.)</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                    <button id="btn-ryt" class="btn btn-icon done-check-btn" onclick="logHabit('Rytinė mankšta')" style="padding: 6px; border-radius: 8px;">
+                        <i data-lucide="circle" class="lucide-sm"></i>
+                    </button>
+                    <i data-lucide="chevron-down" id="icon-rytine" class="text-dim" style="width: 18px;"></i>
+                </div>
             </div>
-        </div>
-
-        <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 24px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_3'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('NAMAI_3')"><i data-lucide="activity" class="text-success lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('NAMAI_3')">
-                <div class="card-title text-success">3 DIENA: Visas kūnas & Šerdis</div>
-                <div class="card-desc">Thrusters, lenta su lenkimu, atsilenkimai su spaudimu, rusiškas sukimasis.</div>
-            </div>
-        </div>
-
-        <div class="spacer-bottom"></div>
-    </div>
-
-
-    <!-- WORKOUT VIEW -->
-    <div id="workout-view" class="view-section hidden">
-        <div class="flex items-center justify-between mb-3 mt-1">
-            <button class="btn btn-ghost" onclick="goHome()"><i data-lucide="chevron-left" class="lucide-lg"></i></button>
-            <h2 id="workout-title" class="fw-700 m-0" style="font-size: 20px;">Rutina</h2>
-            <div style="width: 44px;"></div>
-        </div>
-
-        <div id="exercise-container" class="exercise-list mb-3">
-            <!-- Exercises Injected Here -->
-        </div>
-
-        <button class="btn btn-primary" onclick="finishWorkout()">
-            <i data-lucide="check"></i> Baigti ir Išsaugoti
-        </button>
-        <div class="spacer-bottom"></div>
-    </div>
-
-
-    <!-- EDIT WORKOUT VIEW -->
-    <div id="edit-workout-view" class="view-section hidden">
-        <div class="flex items-center justify-between mb-3 mt-1">
-            <button class="btn btn-ghost" onclick="goHome()"><i data-lucide="chevron-left" class="lucide-lg"></i></button>
-            <h2 id="edit-workout-title" class="fw-700 m-0" style="font-size: 20px; color: var(--accent);">Redaguoti</h2>
-            <div style="width: 44px;"></div>
-        </div>
-
-        <p class="text-dim mb-3" style="font-size: 13px; text-align: center;">Šie pakeitimai išliks jūsų telefone amžinai.</p>
-        
-        <div id="edit-exercise-container" class="exercise-list mb-3">
-            <!-- Edit Forms Injected Here -->
-        </div>
-
-        <button class="btn btn-outline" style="width: 100%; border-style: dashed; margin-bottom: 16px;" onclick="addBlankExerciseForm()">
-            <i data-lucide="plus"></i> Pridėti Naują Pratimą
-        </button>
-
-        <button class="btn btn-success" onclick="saveWorkouts()">
-            <i data-lucide="save"></i> Išsaugoti Pakeitimus
-        </button>
-        
-        <div class="spacer-bottom"></div>
-    </div>
-
-
-    <!-- DAILY ROUTINE (HABITS) VIEW -->
-    <div id="posture-view" class="view-section hidden">
-        <div class="flex justify-between items-center mb-3">
-            <h2 class="section-title text-accent m-0"><i data-lucide="sun"></i> Dienos Rutina</h2>
-            <span id="habit-summary" class="date-badge">Atlikta: 0/2</span>
-        </div>
-        
-        <p class="text-dim mb-3" style="font-size: 14px;">Sekite žingsnius ir atlikite rutiną palaipsniui.</p>
-        
-        <div class="glass-card" style="border-left: 4px solid var(--warning);">
-            <div class="flex-col gap-2">
-                <h3 class="m-0" style="color: var(--warning); font-size: 18px;">🌅 Kasdienė Rytinė Mankšta (~7 min.)</h3>
-                
+            <div class="collapsible-content hidden" id="content-rytine" style="margin-top: 14px;">
                 <div class="step-list">
                     <div class="step-item">
                         <div>
@@ -216,17 +142,32 @@
                         <a href="https://www.youtube.com/results?search_query=calf+raises+ankle+stability" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                 </div>
-
-                <button id="btn-ryt" class="btn btn-outline mt-1" style="border-color: rgba(255,214,10,0.3); color: var(--warning);" onclick="logHabit('Rytinė mankšta')">
-                    <i data-lucide="circle"></i> Pažymėti kaip atliktą
-                </button>
             </div>
         </div>
 
-        <div class="glass-card" style="border-left: 4px solid var(--primary);">
-            <div class="flex-col gap-2">
-                <h3 class="m-0 text-primary" style="font-size: 18px;">🌙 Kasdienė Vakarinė Mankšta (~10 min.)</h3>
-                
+        <!-- 2. JĖGOS TRENIRUOTĖ (Dynamic) -->
+        <div id="today-strength-container">
+            <!-- Injected dynamically via app.js -->
+        </div>
+
+        <!-- 3. VAKARINĖ MANKŠTA -->
+        <div class="glass-card collapsible-card" id="card-vakarine" style="border-left: 4px solid var(--primary); padding: 16px; margin-bottom: 24px;">
+            <div class="card-header flex justify-between items-center" onclick="toggleCollapse('vakarine')" style="cursor: pointer;">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="moon" class="text-primary lucide-lg"></i>
+                    <div>
+                        <h3 class="m-0" style="font-size: 15px; font-weight: 700;">🌙 Vakarinė Mankšta</h3>
+                        <p class="text-dim m-0" style="font-size: 11px;">Atpalaidavimas, įtampų mažinimas (~10 min.)</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                    <button id="btn-vak" class="btn btn-icon done-check-btn" onclick="logHabit('Vakarinė mankšta')" style="padding: 6px; border-radius: 8px;">
+                        <i data-lucide="circle" class="lucide-sm"></i>
+                    </button>
+                    <i data-lucide="chevron-down" id="icon-vakarine" class="text-dim" style="width: 18px;"></i>
+                </div>
+            </div>
+            <div class="collapsible-content hidden" id="content-vakarine" style="margin-top: 14px;">
                 <div class="step-list">
                     <div class="step-item">
                         <div>
@@ -285,29 +226,131 @@
                         <a href="https://www.youtube.com/results?search_query=knees+to+chest+rocking" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                 </div>
-
-                <button id="btn-vak" class="btn btn-outline mt-1" style="border-color: rgba(255,45,85,0.3); color: var(--primary);" onclick="logHabit('Vakarinė mankšta')">
-                    <i data-lucide="circle"></i> Pažymėti kaip atliktą
-                </button>
             </div>
         </div>
+
+        <!-- KITOS TRENIRUOTĖS (Collapsible) -->
+        <div class="flex items-center justify-between mb-3 mt-2" onclick="toggleCollapse('all-workouts')" style="cursor: pointer; background: rgba(255,255,255,0.02); padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border);">
+            <h3 class="section-title text-dim m-0" style="font-size: 14px; font-weight: 600;"><i data-lucide="sliders" class="lucide-sm"></i> Kitos Jėgos Treniruotės</h3>
+            <i data-lucide="chevron-down" id="icon-all-workouts" class="text-dim" style="width: 18px;"></i>
+        </div>
+
+        <div class="collapsible-content hidden" id="content-all-workouts">
+            <!-- 1 DIENA -->
+            <div class="glass-card collapsible-card" id="card-all-namai1" style="border-left: 4px solid var(--success); padding: 16px; margin-bottom: 12px;">
+                <div class="card-header flex justify-between items-center" onclick="toggleWorkoutInline('NAMAI_1', 'all-namai1')" style="cursor: pointer;">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="arrow-down" class="text-success lucide-lg"></i>
+                        <div>
+                            <h3 class="m-0" style="font-size: 15px; font-weight: 700;">1 DIENA: Apatinė dalis</h3>
+                            <p class="text-dim m-0" style="font-size: 11px;">Pritūpimai, sėdmenų tiltas, šoninis kėlimas, įtūpstai atgal ir donkey kicks.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                        <button class="btn btn-icon" onclick="openEditWorkouts('NAMAI_1')" style="padding: 6px; border-radius: 8px;"><i data-lucide="pencil" class="lucide-sm"></i></button>
+                        <i data-lucide="chevron-down" id="icon-all-namai1" class="text-dim" style="width: 18px;"></i>
+                    </div>
+                </div>
+                <div class="collapsible-content hidden" id="content-all-namai1" style="margin-top: 14px;">
+                    <div class="exercise-list mb-3" id="exercises-all-namai1"></div>
+                    <button class="btn btn-primary mt-2" style="width:100%;" onclick="saveStrengthWorkoutInline('NAMAI_1', 'all-namai1')">
+                        <i data-lucide="check"></i> Išsaugoti
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2 DIENA -->
+            <div class="glass-card collapsible-card" id="card-all-namai2" style="border-left: 4px solid var(--success); padding: 16px; margin-bottom: 12px;">
+                <div class="card-header flex justify-between items-center" onclick="toggleWorkoutInline('NAMAI_2', 'all-namai2')" style="cursor: pointer;">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="target" class="text-success lucide-lg"></i>
+                        <div>
+                            <h3 class="m-0" style="font-size: 15px; font-weight: 700;">2 DIENA: Viršutinė dalis</h3>
+                            <p class="text-dim m-0" style="font-size: 11px;">Svarelių spaudimas, atsispaudimai, trauka, bicepso ir tricepso tiesimas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                        <button class="btn btn-icon" onclick="openEditWorkouts('NAMAI_2')" style="padding: 6px; border-radius: 8px;"><i data-lucide="pencil" class="lucide-sm"></i></button>
+                        <i data-lucide="chevron-down" id="icon-all-namai2" class="text-dim" style="width: 18px;"></i>
+                    </div>
+                </div>
+                <div class="collapsible-content hidden" id="content-all-namai2" style="margin-top: 14px;">
+                    <div class="exercise-list mb-3" id="exercises-all-namai2"></div>
+                    <button class="btn btn-primary mt-2" style="width:100%;" onclick="saveStrengthWorkoutInline('NAMAI_2', 'all-namai2')">
+                        <i data-lucide="check"></i> Išsaugoti
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3 DIENA -->
+            <div class="glass-card collapsible-card" id="card-all-namai3" style="border-left: 4px solid var(--success); padding: 16px; margin-bottom: 24px;">
+                <div class="card-header flex justify-between items-center" onclick="toggleWorkoutInline('NAMAI_3', 'all-namai3')" style="cursor: pointer;">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="activity" class="text-success lucide-lg"></i>
+                        <div>
+                            <h3 class="m-0" style="font-size: 15px; font-weight: 700;">3 DIENA: Visas kūnas</h3>
+                            <p class="text-dim m-0" style="font-size: 11px;">Thrusters, lenta su lenkimu, atsilenkimai su spaudimu, rusiškas sukimasis.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                        <button class="btn btn-icon" onclick="openEditWorkouts('NAMAI_3')" style="padding: 6px; border-radius: 8px;"><i data-lucide="pencil" class="lucide-sm"></i></button>
+                        <i data-lucide="chevron-down" id="icon-all-namai3" class="text-dim" style="width: 18px;"></i>
+                    </div>
+                </div>
+                <div class="collapsible-content hidden" id="content-all-namai3" style="margin-top: 14px;">
+                    <div class="exercise-list mb-3" id="exercises-all-namai3"></div>
+                    <button class="btn btn-primary mt-2" style="width:100%;" onclick="saveStrengthWorkoutInline('NAMAI_3', 'all-namai3')">
+                        <i data-lucide="check"></i> Išsaugoti
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="spacer-bottom"></div>
+    </div>
+
+
+    <!-- EDIT WORKOUT VIEW -->
+    <div id="edit-workout-view" class="view-section hidden">
+        <div class="flex items-center justify-between mb-3 mt-1">
+            <button class="btn btn-ghost" onclick="goHome()"><i data-lucide="chevron-left" class="lucide-lg"></i></button>
+            <h2 id="edit-workout-title" class="fw-700 m-0" style="font-size: 20px; color: var(--accent);">Redaguoti</h2>
+            <div style="width: 44px;"></div>
+        </div>
+
+        <p class="text-dim mb-3" style="font-size: 13px; text-align: center;">Šie pakeitimai išliks jūsų telefone amžinai.</p>
+        
+        <div id="edit-exercise-container" class="exercise-list mb-3">
+            <!-- Edit Forms Injected Here -->
+        </div>
+
+        <button class="btn btn-outline" style="width: 100%; border-style: dashed; margin-bottom: 16px;" onclick="addBlankExerciseForm()">
+            <i data-lucide="plus"></i> Pridėti Naują Pratimą
+        </button>
+
+        <button class="btn btn-success" onclick="saveWorkouts()">
+            <i data-lucide="save"></i> Išsaugoti Pakeitimus
+        </button>
         
         <div class="spacer-bottom"></div>
     </div>
+
 
 
     <!-- HISTORY VIEW -->
     <div id="history-view" class="view-section hidden">
         <h2 class="section-title text-success mb-3"><i data-lucide="check-square"></i> Jūsų Pasiekimai</h2>
         
-        <div class="glass-card text-center mb-3">
-            <p class="text-dim m-0 mb-1" style="font-size: 13px;">Aktyvesnių dienų fiksacija</p>
-            <div class="weekly-progress-stats fw-700" style="font-size: 20px;">0 treniruotės per 7 dienas</div>
-            <div class="weekly-progress-bar" style="margin: 12px auto 0 auto;">
-                <div class="dow-indicator">P</div><div class="dow-indicator">A</div><div class="dow-indicator">T</div>
-                <div class="dow-indicator">K</div><div class="dow-indicator">P</div><div class="dow-indicator">Š</div>
-                <div class="dow-indicator">S</div>
+        <!-- MĖNESIO IŠŠŪKIS -->
+        <div class="glass-card mb-3" style="padding: 18px;">
+            <div class="flex justify-between items-center mb-3">
+                <span class="fw-700" style="font-size: 15px; color: var(--success); display: flex; align-items: center; gap: 6px;"><i data-lucide="award" class="lucide-sm"></i> 30 Dienų Iššūkis</span>
+                <span id="streak-counter" class="date-badge" style="color: var(--warning); border-color: rgba(255,214,10,0.2); font-size: 12px; padding: 4px 10px;">Serija: 0 d. 🔥</span>
             </div>
+            <div class="challenge-grid" id="challenge-grid-container">
+                <!-- 30 days injected here -->
+            </div>
+            <p class="text-dim mt-2 m-0" style="font-size: 11px; text-align: center; line-height: 1.3;">Atlikite bet kokį pratimo įrašą kasdien, kad pratęstumėte seriją.</p>
         </div>
 
         <div id="history-container" class="flex-col mb-3">
