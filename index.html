@@ -40,56 +40,33 @@
             </div>
         </header>
 
-        <!-- Salės variantai -->
-        <h2 class="section-title text-primary"><i data-lucide="dumbbell"></i> Sporto Salė</h2>
-
-        <div class="selection-card" style="border-left: 4px solid var(--primary); margin-bottom: 12px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('SALE_A'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('SALE_A')"><i data-lucide="arrow-up" class="text-primary lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('SALE_A')">
-                <div class="card-title text-primary">Salė A: Viršus + Presas</div>
-                <div class="card-desc">Vertikalus tempimas, krūtinė, pečiai ir lynai. Nuo apšilimo iki atsipalaidavimo.</div>
-            </div>
-        </div>
-
-        <div class="selection-card" style="border-left: 4px solid var(--primary); margin-bottom: 24px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('SALE_B'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('SALE_B')"><i data-lucide="layers" class="text-primary lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('SALE_B')">
-                <div class="card-title text-primary">Salė B: Visas Kūnas</div>
-                <div class="card-desc">Sėdmenys, šlaunys ir horizontali nugaros trauka. Nuo apšilimo iki atsipalaidavimo.</div>
-            </div>
-        </div>
-
-        <!-- Namų variantai -->
-        <h2 class="section-title text-success"><i data-lucide="home"></i> Namuose</h2>
+        <!-- Jėgos Treniruotės Namuose -->
+        <h2 class="section-title text-success"><i data-lucide="home"></i> Jėgos Treniruotės (3x per savaitę)</h2>
 
         <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 12px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_A'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('NAMAI_A')"><i data-lucide="circle" class="text-success lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('NAMAI_A')">
-                <div class="card-title text-success">Namai A: Kamuoliukas</div>
-                <div class="card-desc">Sėdmenys, nugara, ir gilūs tempimai su kamuoliuku. Pilna kaskada.</div>
+            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_1'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
+            <div class="card-icon" onclick="startWorkout('NAMAI_1')"><i data-lucide="arrow-down" class="text-success lucide-lg"></i></div>
+            <div class="card-content" onclick="startWorkout('NAMAI_1')">
+                <div class="card-title text-success">1 DIENA: Apatinė dalis & Sėdmenys</div>
+                <div class="card-desc">Pritūpimai, sėdmenų tiltas, šoninis kėlimas, įtūpstai atgal ir donkey kicks.</div>
+            </div>
+        </div>
+
+        <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 12px;">
+            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_2'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
+            <div class="card-icon" onclick="startWorkout('NAMAI_2')"><i data-lucide="target" class="text-success lucide-lg"></i></div>
+            <div class="card-content" onclick="startWorkout('NAMAI_2')">
+                <div class="card-title text-success">2 DIENA: Viršutinė dalis & Krūtinė</div>
+                <div class="card-desc">Svarelių spaudimas, atsispaudimai, trauka, bicepso ir tricepso tiesimas.</div>
             </div>
         </div>
 
         <div class="selection-card" style="border-left: 4px solid var(--success); margin-bottom: 24px;">
-            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_B'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
-            <div class="card-icon" onclick="startWorkout('NAMAI_B')"><i data-lucide="activity" class="text-success lucide-lg"></i></div>
-            <div class="card-content" onclick="startWorkout('NAMAI_B')">
-                <div class="card-title text-success">Namai B: Svareliai (1kg)</div>
-                <div class="card-desc">Rankų, pečių tonusas. Lengvas apšilimas ir gilus tempimas pabaigoje.</div>
-            </div>
-        </div>
-
-        <!-- Studija -->
-        <h2 class="section-title text-secondary"><i data-lucide="heart"></i> Studija</h2>
-
-        <div class="selection-card" id="studio-btn" onclick="logStudioClass()" style="border-left: 4px solid var(--secondary);">
-            <div class="card-icon"><i data-lucide="check" class="text-secondary lucide-lg"></i></div>
-            <div class="card-content" id="studio-btn-text">
-                <div class="card-title text-secondary">Pilates / Mobility</div>
-                <div class="card-desc">Atžymėti atliktą grupinę treniruotę istorijoje.</div>
+            <div class="edit-action-btn" onclick="openEditWorkouts('NAMAI_3'); event.stopPropagation();"><i data-lucide="pencil" class="lucide-sm"></i></div>
+            <div class="card-icon" onclick="startWorkout('NAMAI_3')"><i data-lucide="activity" class="text-success lucide-lg"></i></div>
+            <div class="card-content" onclick="startWorkout('NAMAI_3')">
+                <div class="card-title text-success">3 DIENA: Visas kūnas & Šerdis</div>
+                <div class="card-desc">Thrusters, lenta su lenkimu, atsilenkimai su spaudimu, rusiškas sukimasis.</div>
             </div>
         </div>
 
@@ -146,43 +123,85 @@
     <div id="posture-view" class="view-section hidden">
         <div class="flex justify-between items-center mb-3">
             <h2 class="section-title text-accent m-0"><i data-lucide="sun"></i> Dienos Rutina</h2>
-            <span id="habit-summary" class="date-badge">Atlikta: 0/3</span>
+            <span id="habit-summary" class="date-badge">Atlikta: 0/2</span>
         </div>
         
         <p class="text-dim mb-3" style="font-size: 14px;">Sekite žingsnius ir atlikite rutiną palaipsniui.</p>
         
         <div class="glass-card" style="border-left: 4px solid var(--warning);">
             <div class="flex-col gap-2">
-                <h3 class="m-0" style="color: var(--warning); font-size: 18px;">🌅 Rytinė Mankštelė</h3>
+                <h3 class="m-0" style="color: var(--warning); font-size: 18px;">🌅 Kasdienė Rytinė Mankšta (~7 min.)</h3>
                 
                 <div class="step-list">
                     <div class="step-item">
                         <div>
-                            <div class="step-text">1. Apšilimas: Pečių sukimai</div>
-                            <div class="step-desc">Lėti sukimai pirmyn atgal (1 min)</div>
+                            <div class="step-text">1. Kaklo ir pečių sukimai</div>
+                            <div class="step-desc">Po 6–8 kartus lėtai į abi puses, po to platūs pečių sukimai</div>
                         </div>
                         <a href="https://www.youtube.com/results?search_query=neck+and+shoulder+rolls+warm+up" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">2. Pagrindas: Katė-Karvė</div>
-                            <div class="step-desc">10 piktos katės ir laimingos karvės (1 min)</div>
+                            <div class="step-text">2. Rankų mojai ir krūtinės atvėrimas</div>
+                            <div class="step-desc">30 sek. plačiai skėskite rankas į šonus ir kryžiuokite priešais save</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=cat+cow+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=arm+crossover+chest+opener" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">3. Paukštis-Šuo</div>
-                            <div class="step-desc">Ištieskite priešingą ranką ir koją (1 min)</div>
+                            <div class="step-text">3. Sienos angelai („Wall Angels“)</div>
+                            <div class="step-desc">10–12 kartų. Atsistokite nugara prie sienos, slinkite „L“ rankomis aukštyn ir žemyn</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=bird-dog+exercise+form" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=wall+angels+exercise+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">4. Atsipalaidavimas: Vaiko poza</div>
-                            <div class="step-desc">6 giliems įkvėpimams (45 sek.)</div>
+                            <div class="step-text">4. Liemens sukimai ir šonų tempimas</div>
+                            <div class="step-desc">Po 8 kartus į kiekvieną pusę</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=childs+pose+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=standing+torso+twist+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">5. Pritūpimai su rankų iškėlimu</div>
+                            <div class="step-desc">10–12 kartų. Pritūpus apačioje iškelkite rankas virš galvos</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=squat+with+arm+raise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">6. Įtūpstas su liemens pasukimu</div>
+                            <div class="step-desc">Po 6 kartus kiekvienai pusei</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=lunge+with+spinal+twist" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">7. Dinaminis „Šuo-Kobra“</div>
+                            <div class="step-desc">8–10 perėjimų iš „Žemyn žiūrinčio šuns“ į kobros/išsitiesimo pozą</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=downward+dog+to+cobra+flow" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">8. Švytuokliniai kojų mojai</div>
+                            <div class="step-desc">Po 10 kartų kojai į priekį/atgal ir į šonus</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=leg+swings+dynamic+warm+up" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">9. Pėdų ir čiurnų sukimai</div>
+                            <div class="step-desc">Po 10 ratų kiekvienai kojai</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=ankle+rolls+mobility" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">10. Pasistiebimai ant pėdų</div>
+                            <div class="step-desc">15–20 kartų. Aktyvina blauzdų raumenis ir pėdos skliautą</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=calf+raises+ankle+stability" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                 </div>
 
@@ -192,83 +211,70 @@
             </div>
         </div>
 
-        <div class="glass-card" style="border-left: 4px solid var(--secondary);">
-            <div class="flex-col gap-2">
-                <h3 class="m-0 text-secondary" style="font-size: 18px;">💻 Darbo Pertraukėlė</h3>
-                
-                <div class="step-list">
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">1. Apšilimas: Kaklo posūkiai</div>
-                            <div class="step-desc">Lenkti į šonus po 20 sek.</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=neck+stretch+desk" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">2. Smakro Įtraukimas</div>
-                            <div class="step-desc">Stumti smakrą atgal kurti "pagurklį" (10 k.)</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=chin+tucks+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">3. Menčių Suvedimas</div>
-                            <div class="step-desc">Suvesti mentis išlaikant 3 s. (10 k.)</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=scapular+retraction+desk" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">4. Atsipalaidavimas: Kėdės sukimas</div>
-                            <div class="step-desc">Stuburo posūkis į kairę ir dešinę (1 min)</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=seated+spinal+twist" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                </div>
-
-                <button id="btn-darb" class="btn btn-outline mt-1" style="border-color: rgba(0,122,255,0.3); color: var(--secondary);" onclick="logHabit('Darbo pertraukėlė')">
-                    <i data-lucide="circle"></i> Pažymėti kaip atliktą
-                </button>
-            </div>
-        </div>
-
         <div class="glass-card" style="border-left: 4px solid var(--primary);">
             <div class="flex-col gap-2">
-                <h3 class="m-0 text-primary" style="font-size: 18px;">🌙 Vakarinė Korekcija</h3>
+                <h3 class="m-0 text-primary" style="font-size: 18px;">🌙 Kasdienė Vakarinė Mankšta (~10 min.)</h3>
                 
                 <div class="step-list">
                     <div class="step-item">
                         <div>
-                            <div class="step-text">1. Apšilimas: Sienos Skaidrės</div>
-                            <div class="step-desc">Mankština į priekį palinkusius pečius (15 k.)</div>
+                            <div class="step-text">1. Pečių prasukimai su diržu</div>
+                            <div class="step-desc">10–12 pakartojimų. Laikykite ištemptą diržą ir lėtai tiesiomis rankomis perkelkite jį už nugaros ir atgal</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=wall+slides+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=shoulder+dislocation+with+strap" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">2. Pagrindas: Y-T-W-L Gulint</div>
-                            <div class="step-desc">Lėtas rankų judinimas ant pilvo (15 k.)</div>
+                            <div class="step-text">2. Dvigubas pagurklis („Chin Tucks“)</div>
+                            <div class="step-desc">12–15 kartų. Sėdint tiesiai, stumkite galvą horizontaliai atgal, užlaikykite 2–3 sek.</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=prone+ytwl+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=chin+tuck+posture+exercise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">3. Pilnas krūtinės atvėrimas volu</div>
-                            <div class="step-desc">Atsigulti išilgai arba skersai polo (3 min)</div>
+                            <div class="step-text">3. Katės ir šuns poza (Katė-Kupranugaris)</div>
+                            <div class="step-desc">45 sek. Įkvepiant rieskite nugarą žemyn, iškvepiant – apvalinkite į viršų</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=foam+roller+thoracic+extension" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=cat+cow+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                     <div class="step-item">
                         <div>
-                            <div class="step-text">4. Atsipalaidavimas: Kobra</div>
-                            <div class="step-desc">Švelniai iškelti stuburą nuo klubų (1 min)</div>
+                            <div class="step-text">4. Paukštis-šuo</div>
+                            <div class="step-desc">Keturiomis tieskite priešingą ranką ir koją, stabilizuokite stuburą. Po 12–15 kartų kiekvienai pusei</div>
                         </div>
-                        <a href="https://www.youtube.com/results?search_query=cobra+stretch+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=bird+dog+exercise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">5. Gili vaiko poza su pasukimu</div>
+                            <div class="step-desc">Po 30 sek. kiekvienai pusei, tempiant nugarą</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=childs+pose+with+rotation" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">6. Nugaros sukimas gulint (Suktuko poza)</div>
+                            <div class="step-desc">Po 30 sek. vienam šonui</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=supine+spinal+twist+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">7. Drugelio poza ant nugaros</div>
+                            <div class="step-desc">45 sek. atveriant klubus ir giliai kvėpuojant</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=reclining+butterfly+pose" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
+                    </div>
+                    <div class="step-item">
+                        <div>
+                            <div class="step-text">8. Kelių pritraukimas prie krūtinės</div>
+                            <div class="step-desc">1 min. gulint ant nugaros, švelniai pasisupuojant į šonus</div>
+                        </div>
+                        <a href="https://www.youtube.com/results?search_query=knees+to+chest+rocking" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
                     </div>
                 </div>
 
-                <button id="btn-vak" class="btn btn-outline mt-1" style="border-color: rgba(255,45,85,0.3); color: var(--primary);" onclick="logHabit('Vakarinė korekcija')">
+                <button id="btn-vak" class="btn btn-outline mt-1" style="border-color: rgba(255,45,85,0.3); color: var(--primary);" onclick="logHabit('Vakarinė mankšta')">
                     <i data-lucide="circle"></i> Pažymėti kaip atliktą
                 </button>
             </div>

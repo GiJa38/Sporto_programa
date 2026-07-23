@@ -1,39 +1,28 @@
 const defaultWorkouts = {
-    'SALE_A': [
-        { name: 'Kardio (Apšilimas)', gear: 'Elipsinis / Takelis', sets: 1, reps: '5-7 min', isWeight: false, desc: 'Prakaito išmušimui.', video: 'https://www.youtube.com/results?search_query=5+minute+treadmill+warm+up+beginner' },
-        { name: 'Pečių Rotatoriai', gear: 'Laisvi (be svorio)', sets: 1, reps: '10 k. pirmyn/atgal', isWeight: false, desc: 'Rankų mostai pečių sąnariams.', video: 'https://www.youtube.com/results?search_query=arm+circles+warm+up' },
-        { name: 'Vertikali Trauka', gear: 'Treniruoklis', sets: 3, reps: '10-12', isWeight: true, desc: 'Traukite link krūtinės.', video: 'https://www.youtube.com/results?search_query=lat+pulldown+beginner+form' },
-        { name: 'Krūtinės Spaudimas', gear: 'Treniruoklis', sets: 3, reps: '10-12', isWeight: true, desc: 'Stiprus išstūmimas.', video: 'https://www.youtube.com/results?search_query=machine+chest+press+beginner+form' },
-        { name: 'Pečių Spaudimas', gear: 'Hanteliai', sets: 3, reps: '10', isWeight: true, desc: 'Sėdint su atrama.', video: 'https://www.youtube.com/results?search_query=seated+dumbbell+shoulder+press+form' },
-        { name: 'Atsilenkimai Linijos Trauka', gear: 'Lynas (Cable)', sets: 3, reps: '15', isWeight: true, desc: 'Stipriai sutraukti presą žemyn.', video: 'https://www.youtube.com/results?search_query=kneeling+cable+crunch+form' },
-        { name: 'Nugaros Tempimas', gear: 'Skersinis / Atrama', sets: 1, reps: '30 sek.', isWeight: false, desc: 'Laisvai pakyboti ar atsiremti ir tempti.', video: 'https://www.youtube.com/results?search_query=dead+hang+back+stretch' }
+    'NAMAI_1': [
+        { name: 'Pritūpimai su svarmeniu prie krūtinės (Goblet Squats)', gear: 'Svarmuo (5 kg)', sets: 3, reps: '10-12 k.', isWeight: true, desc: 'Nusileidžiant kontroliuokite kelius.', video: 'https://www.youtube.com/results?search_query=goblet+squat+form' },
+        { name: 'Sėdmenų tiltas su guma ir svoriais', gear: 'Guma ir svoriai', sets: 3, reps: '25 k.', isWeight: true, desc: 'Pakilus į viršų, 3 kartus praskėskite kelius į šonus.', video: 'https://www.youtube.com/results?search_query=glute+bridge+with+band+and+weights' },
+        { name: 'Šoninis kojos kėlimas gulint', gear: 'Kūno svoris', sets: 1, reps: 'Po 20 k. kojai', isWeight: false, desc: 'Dešinei ir kairei kojai.', video: 'https://www.youtube.com/results?search_query=lying+side+leg+raise' },
+        { name: 'Įtūpstai atgal su svarmenimis (Reverse Lunges)', gear: 'Svarmenys', sets: 3, reps: 'Po 10 k. kojai', isWeight: true, desc: 'Kontroliuokite pusiausvyrą.', video: 'https://www.youtube.com/results?search_query=reverse+lunges+with+dumbbells' },
+        { name: 'Asiliuko spyris (Donkey Kick)', gear: 'Kūno svoris / Guma', sets: 1, reps: 'Po 15-20 k. kojai', isWeight: false, desc: 'Viršuje stipriai suspauskite sėdmenį.', video: 'https://www.youtube.com/results?search_query=donkey+kick+exercise' },
+        { name: 'Kojų nuleidimas pilvo apačiai', gear: 'Kilimėlis', sets: 3, reps: '12-15 k.', isWeight: false, desc: 'Griežtai prispauskite juosmenį prie grindų.', video: 'https://www.youtube.com/results?search_query=leg+lowering+exercise' }
     ],
-    'SALE_B': [
-        { name: 'Liptynės / Įkalnė', gear: 'Treniruoklis', sets: 1, reps: '5-7 min', isWeight: false, desc: 'Sušildyti kojas.', video: 'https://www.youtube.com/results?search_query=stairmaster+treadmill+warm+up' },
-        { name: 'Dinaminiai Įtūpstai', gear: 'Kūno svoris', sets: 1, reps: 'Po 5 kojai', isWeight: false, desc: 'Lengvi gilūs žingsniai vietoj.', video: 'https://www.youtube.com/results?search_query=bodyweight+dynamic+lunges' },
-        { name: 'Kojų Presas', gear: 'Treniruoklis', sets: 3, reps: '12', isWeight: true, desc: 'Stūmimas akcentuojant sėdmenis.', video: 'https://www.youtube.com/results?search_query=leg+press+beginner+form' },
-        { name: 'Horizontali Trauka', gear: 'Treniruoklis', sets: 3, reps: '12', isWeight: true, desc: 'Nugaros susitraukimui.', video: 'https://www.youtube.com/results?search_query=seated+cable+row+beginner+form' },
-        { name: 'Kojų Lenkimas / Tiesimas', gear: 'Treniruoklis', sets: 3, reps: '12', isWeight: true, desc: 'Šlaunų užbaigimui.', video: 'https://www.youtube.com/results?search_query=leg+extension+leg+curl+machine' },
-        { name: 'Kojų Kėlimas "Captain\'s Chair"', gear: 'Kėdės rėmas', sets: 3, reps: '12-15', isWeight: false, desc: 'Pakėlus kelius prie krūtinės.', video: 'https://www.youtube.com/results?search_query=captains+chair+leg+raises' },
-        { name: 'Šlaunų Tempimas stovint', gear: 'Atrama', sets: 1, reps: 'Po 30 s.', isWeight: false, desc: 'Traukti kulną prie sėdmens.', video: 'https://www.youtube.com/results?search_query=standing+quad+stretch' }
+    'NAMAI_2': [
+        { name: 'Svarelių spaudimas virš galvos (Shoulder Press)', gear: 'Svarmenys', sets: 3, reps: '15-20 k.', isWeight: true, desc: 'Stiprūs krūtinės ir nugaros raumenys tiesiogiai atsakingi už taisyklingą laikyseną.', video: 'https://www.youtube.com/results?search_query=dumbbell+shoulder+press' },
+        { name: 'Atsispaudimai (nuo grindų arba kelių)', gear: 'Kūno svoris', sets: 3, reps: '8-12 k.', isWeight: false, desc: 'Kūnas tiesus, alkūnės 45 laipsnių kampu.', video: 'https://www.youtube.com/results?search_query=push+ups+form+beginner' },
+        { name: 'Dviejų rankų trauka su svarmenimis pasilenkus (Dumbbell Row)', gear: 'Svarmenys', sets: 3, reps: '10-12 k.', isWeight: true, desc: 'Nugarą laikykite tiesiai, svarmenis traukite link šonkaulių.', video: 'https://www.youtube.com/results?search_query=bent+over+dumbbell+row' },
+        { name: 'Bicepso lenkimas („Plaktukas“)', gear: 'Svarmenys', sets: 3, reps: '20 k.', isWeight: true, desc: 'Alkūnės prispaustos prie šonų.', video: 'https://www.youtube.com/results?search_query=dumbbell+hammer+curl' },
+        { name: 'Tricepso tiesimas už galvos', gear: 'Svarmuo', sets: 3, reps: '15-20 k.', isWeight: true, desc: 'Stiprina galinę rankų dalį.', video: 'https://www.youtube.com/results?search_query=overhead+dumbbell+tricep+extension' },
+        { name: 'Atsilenkimai su svoriu rankose', gear: 'Svarmuo', sets: 3, reps: '15-20 k.', isWeight: true, desc: 'Pilvo presui.', video: 'https://www.youtube.com/results?search_query=weighted+crunches' }
     ],
-    'NAMAI_A': [
-        { name: 'Kaklo ir Pečių atlaisvinimas', gear: 'Kilimėlis', sets: 1, reps: '1 min', isWeight: false, desc: 'Lėti ir platūs judesiai.', video: 'https://www.youtube.com/results?search_query=neck+and+shoulder+rolls+warm+up' },
-        { name: 'Katė-Karvė', gear: 'Kilimėlis', sets: 1, reps: '10 k.', isWeight: false, desc: 'Nugaros išlenkimas ir nuleidimas.', video: 'https://www.youtube.com/results?search_query=cat+cow+stretch' },
-        { name: 'Sėdmenų kėlimas', gear: '25cm Kamuoliukas', sets: 3, reps: '15', isWeight: false, desc: 'Spaudžiant kamuoliuką tarp kelių.', video: 'https://www.youtube.com/results?search_query=glute+bridge+with+pilates+ball' },
-        { name: 'Kamuoliuko perdavimas', gear: '25cm Kamuoliukas', sets: 3, reps: '12', isWeight: false, desc: 'Perduoti pritraukiant kelius iš rankų.', video: 'https://www.youtube.com/results?search_query=v-pass+pilates+ball+core+exercise' },
-        { name: 'Lenta (Plank)', gear: 'Kilimėlis', sets: 3, reps: '30-45 s', isWeight: false, desc: 'Tiesi linija ant alkūnių.', video: 'https://www.youtube.com/results?search_query=plank+exercise+form+tutorial' },
-        { name: 'Trumpi Atsilenkimai', gear: '25cm Kamuoliukas', sets: 3, reps: '15', isWeight: false, desc: 'Kamuoliukas už nugaros apatinės dalies.', video: 'https://www.youtube.com/results?search_query=crunches+on+small+pilates+ball' },
-        { name: 'Vaiko Poza', gear: 'Kilimėlis', sets: 1, reps: '1 min', isWeight: false, desc: 'Visiškas atpalaidavimas.', video: 'https://www.youtube.com/results?search_query=childs+pose+stretch' }
-    ],
-    'NAMAI_B': [
-        { name: 'Rankų sukimas ratu', gear: 'Sėdint/Stovint', sets: 1, reps: '10 k.', isWeight: false, desc: 'Pirmyn ir atgal atveriant krūtinę.', video: 'https://www.youtube.com/results?search_query=arm+circles+warm+up+form' },
-        { name: 'Liemens Posūkiai', gear: 'Sėdint', sets: 1, reps: 'Po 5 s.', isWeight: false, desc: 'Pasisukti į abi puses (Twists).', video: 'https://www.youtube.com/results?search_query=seated+torso+twists+warm+up' },
-        { name: 'Ketvirtainis Yrimas', gear: '1kg Svareliai', sets: 3, reps: '12 (Pusei)', isWeight: false, desc: 'Keturpėsčia traukti svorį prie šono.', video: 'https://www.youtube.com/results?search_query=quadruped+dumbbell+row' },
-        { name: 'Skėtimas į šonus', gear: '1kg Svareliai', sets: 3, reps: '15', isWeight: false, desc: 'Pečių raumenims sėdint.', video: 'https://www.youtube.com/results?search_query=seated+dumbbell+lateral+raise' },
-        { name: 'Bicepso Lenkimas', gear: '1kg Svareliai', sets: 3, reps: '15', isWeight: false, desc: 'Klasikinis rankų stiprinimas.', video: 'https://www.youtube.com/results?search_query=dumbbell+bicep+curl+form' },
-        { name: 'Paukštis-Šuo', gear: 'Kilimėlis', sets: 3, reps: '10 (Pusei)', isWeight: false, desc: 'Nugaros-preso stabilizavimas.', video: 'https://www.youtube.com/results?search_query=bird-dog+exercise+form' },
-        { name: 'Krūtinės Tempimas', gear: 'Tarpdurys/Siena', sets: 1, reps: '1 min', isWeight: false, desc: 'Stipriai atverti pečius ir krūtinę atgal.', video: 'https://www.youtube.com/results?search_query=doorway+chest+stretch' }
+    'NAMAI_3': [
+        { name: 'Pritūpimai su rankų išstūmimu (Thrusters)', gear: 'Svarmenys', sets: 3, reps: '10 k.', isWeight: true, desc: 'Pritūpkite ir stumiantis aukštyn tieskite svarmenis virš galvos.', video: 'https://www.youtube.com/results?search_query=dumbbell+thrusters+form' },
+        { name: 'Rankų tiesimas atgal palinkus (Triceps kickback)', gear: 'Svarmenys', sets: 3, reps: '10-15 k.', isWeight: true, desc: 'Rankų tiesimas atgal pasilenkus.', video: 'https://www.youtube.com/results?search_query=dumbbell+triceps+kickback' },
+        { name: 'Lenta (Plank) su rankų lenkimu', gear: 'Kilimėlis', sets: 1, reps: '30-40 sek.', isWeight: false, desc: 'Puikiai aktyvuoja viso kūno ir šerdies raumenis.', video: 'https://www.youtube.com/results?search_query=plank+up+downs' },
+        { name: 'Atsilenkimai (Sit-ups) + svarmens spaudimas aukštyn', gear: 'Svarmuo', sets: 3, reps: '12-15 k.', isWeight: true, desc: 'Atsisėdimas su išstūmimu virš galvos.', video: 'https://www.youtube.com/results?search_query=sit+up+dumbbell+press' },
+        { name: 'Rusiškas sukimasis su svoriu (Russian Twist)', gear: 'Svarmuo', sets: 3, reps: '30 pasisukimų', isWeight: true, desc: 'Po 15 į kiekvieną pusę. Nugara tiesi.', video: 'https://www.youtube.com/results?search_query=weighted+russian+twist' },
+        { name: '„Kalnų kopinėtojas“ (Mountain Climbers)', gear: 'Kilimėlis', sets: 3, reps: '30 sek.', isWeight: false, desc: 'Suteikia papildomo kardio efekto.', video: 'https://www.youtube.com/results?search_query=mountain+climbers+form' },
+        { name: 'Krūtinės atvėrimas ant volo', gear: 'Trumpas volas (Roller)', sets: 1, reps: '2-3 min', isWeight: false, desc: 'Atsigulkite skersai volo po mentėmis, prilaikykite galvą ir atsiloškite.', video: 'https://www.youtube.com/results?search_query=foam+roller+thoracic+extension' }
     ]
 };
 
@@ -44,12 +33,16 @@ let workoutHistory = [];
 let timerInterval;
 
 function loadData() {
-    const custom = JSON.parse(localStorage.getItem('custom_workouts'));
-    if (custom) {
-        workouts = custom;
-    } else {
+    let custom = null;
+    try {
+        custom = JSON.parse(localStorage.getItem('custom_workouts'));
+    } catch(e) {}
+    
+    if (!custom || custom.SALE_A || !custom.NAMAI_1) {
         workouts = JSON.parse(JSON.stringify(defaultWorkouts));
         localStorage.setItem('custom_workouts', JSON.stringify(workouts));
+    } else {
+        workouts = custom;
     }
     
     workoutHistory = JSON.parse(localStorage.getItem('workout_history') || '[]');
@@ -61,10 +54,9 @@ function openEditWorkouts(type) {
     showView('edit-workout-view');
     
     let displayTitle = '';
-    if(type === 'SALE_A') displayTitle = 'Salė A';
-    if(type === 'SALE_B') displayTitle = 'Salė B';
-    if(type === 'NAMAI_A') displayTitle = 'Namai A';
-    if(type === 'NAMAI_B') displayTitle = 'Namai B';
+    if(type === 'NAMAI_1') displayTitle = '1 Diena';
+    if(type === 'NAMAI_2') displayTitle = '2 Diena';
+    if(type === 'NAMAI_3') displayTitle = '3 Diena';
     document.getElementById('edit-workout-title').textContent = displayTitle + ' (Koregavimas)';
     
     const container = document.getElementById('edit-exercise-container');
@@ -187,7 +179,7 @@ function updateWeeklyProgress() {
     const recentWorkouts = workoutHistory.filter(h => {
         const d = new Date(h.date);
         const isRecent = (today - d) / msInDay <= 7;
-        const isMain = h.type.startsWith('SALE') || h.type.startsWith('NAMAI') || h.type === 'STUDIJA';
+        const isMain = h.type.startsWith('NAMAI');
         return isRecent && isMain;
     });
 
@@ -238,8 +230,7 @@ function checkDailyHabits() {
     });
 
     const hasMorning = todaysHabits.some(h => h.type === 'Rytinė mankšta');
-    const hasWork = todaysHabits.some(h => h.type === 'Darbo pertraukėlė');
-    const hasEvening = todaysHabits.some(h => h.type === 'Vakarinė korekcija');
+    const hasEvening = todaysHabits.some(h => h.type === 'Vakarinė mankšta');
 
     function updateHabitBtn(id, isDone) {
         const btn = document.getElementById(id);
@@ -260,14 +251,13 @@ function checkDailyHabits() {
     }
 
     updateHabitBtn('btn-ryt', hasMorning);
-    updateHabitBtn('btn-darb', hasWork);
     updateHabitBtn('btn-vak', hasEvening);
     
     const summary = document.getElementById('habit-summary');
     if(summary) {
-        let count = [hasMorning, hasWork, hasEvening].filter(Boolean).length;
-        summary.textContent = `Atlikta: ${count}/3`;
-        summary.style.color = count === 3 ? 'var(--success)' : 'var(--text-main)';
+        let count = [hasMorning, hasEvening].filter(Boolean).length;
+        summary.textContent = `Atlikta: ${count}/2`;
+        summary.style.color = count === 2 ? 'var(--success)' : 'var(--text-main)';
     }
 
     if(window.lucide) lucide.createIcons();
@@ -327,10 +317,9 @@ function startWorkout(type) {
     const titleEl = document.getElementById('workout-title');
     
     let displayTitle = '';
-    if(type === 'SALE_A') { displayTitle = 'Salė A'; titleEl.className = 'text-primary'; }
-    if(type === 'SALE_B') { displayTitle = 'Salė B'; titleEl.className = 'text-primary'; }
-    if(type === 'NAMAI_A') { displayTitle = 'Namai A'; titleEl.className = 'text-success'; }
-    if(type === 'NAMAI_B') { displayTitle = 'Namai B'; titleEl.className = 'text-success'; }
+    if(type === 'NAMAI_1') { displayTitle = '1 Diena: Apatinė dalis'; titleEl.className = 'text-success'; }
+    if(type === 'NAMAI_2') { displayTitle = '2 Diena: Viršutinė dalis'; titleEl.className = 'text-success'; }
+    if(type === 'NAMAI_3') { displayTitle = '3 Diena: Visas kūnas'; titleEl.className = 'text-success'; }
     
     titleEl.textContent = displayTitle;
     
@@ -504,15 +493,18 @@ function renderHistory() {
         let typeName = item.type;
         let iconName = 'activity';
         
-        if(item.type.startsWith('SALE')) { cardColor = 'var(--primary)'; typeName = item.type === 'SALE_A' ? 'Salės A (Viršus)' : 'Salės B (Pilnas)'; iconName = 'dumbbell'; }
-        if(item.type.startsWith('NAMAI')) { cardColor = 'var(--success)'; typeName = item.type === 'NAMAI_A' ? 'Namai A (Kamuoliukas)' : 'Namai B (Svoriai)'; iconName = 'home'; }
-        if(item.type === 'STUDIJA') { cardColor = 'var(--secondary)'; typeName = 'Pilates / Mobility'; iconName = 'heart'; }
+        if(item.type.startsWith('NAMAI')) {
+            cardColor = 'var(--success)';
+            if(item.type === 'NAMAI_1') typeName = '1 Diena: Apatinė dalis';
+            if(item.type === 'NAMAI_2') typeName = '2 Diena: Viršutinė dalis';
+            if(item.type === 'NAMAI_3') typeName = '3 Diena: Visas kūnas';
+            iconName = 'home';
+        }
         
         if(item.isHabit) {
             let label = "Dienos Rutina";
             if(item.type === 'Rytinė mankšta') label = "Rytinė Rutina";
-            if(item.type === 'Darbo pertraukėlė') label = "Darbo Rutina";
-            if(item.type === 'Vakarinė korekcija') label = "Vakarinė Rutina";
+            if(item.type === 'Vakarinė mankšta') label = "Vakarinė Rutina";
             
             const minorCard = document.createElement('div');
             minorCard.style.cssText = `background: rgba(255,255,255,0.02); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);`;
