@@ -20,11 +20,23 @@
 </head>
 <body>
 
-<div id="timer-overlay" class="timer-overlay">
-    <i data-lucide="timer"></i> Poilsis: <span id="timer-val">60</span>s
-</div>
-
 <div class="app-container" id="app">
+
+    <!-- TOP NAVIGATION -->
+    <nav class="top-nav" id="top-nav-bar">
+        <a href="javascript:void(0)" class="nav-tab active" id="nav-home" onclick="showView('home-view')">
+            <i data-lucide="dumbbell" class="lucide-sm"></i>
+            <span>Jėga</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-tab" id="nav-posture" onclick="showView('posture-view')">
+            <i data-lucide="sun" class="lucide-sm"></i>
+            <span>Rutina</span>
+        </a>
+        <a href="javascript:void(0)" class="nav-tab" id="nav-history" onclick="showView('history-view')">
+            <i data-lucide="bar-chart-2" class="lucide-sm"></i>
+            <span>Progresas</span>
+        </a>
+    </nav>
 
     <!-- HOME VIEW -->
     <div id="home-view" class="view-section">
@@ -317,21 +329,6 @@
     </div>
 
 
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="bottom-nav">
-        <a href="javascript:void(0)" class="nav-item active" id="nav-home" onclick="showView('home-view')">
-            <i data-lucide="zap"></i>
-            <span>Planas</span>
-        </a>
-        <a href="javascript:void(0)" class="nav-item" id="nav-posture" onclick="showView('posture-view')">
-            <i data-lucide="sun"></i>
-            <span>Rutina</span>
-        </a>
-        <a href="javascript:void(0)" class="nav-item" id="nav-history" onclick="showView('history-view')">
-            <i data-lucide="bar-chart-2"></i>
-            <span>Progresas</span>
-        </a>
-    </nav>
 </div>
 
 <script src="app.js"></script>

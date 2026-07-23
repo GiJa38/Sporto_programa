@@ -404,20 +404,24 @@ function showView(viewId) {
     activeView.style.animation = 'none';
     setTimeout(() => activeView.style.animation = '', 10);
 
-    const nav = document.querySelector('.bottom-nav');
+    const nav = document.querySelector('.top-nav');
     if (viewId !== 'workout-view' && viewId !== 'edit-workout-view') {
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(item => item.classList.remove('active'));
         if (viewId === 'home-view') document.getElementById('nav-home').classList.add('active');
         if (viewId === 'posture-view') document.getElementById('nav-posture').classList.add('active');
         if (viewId === 'history-view') document.getElementById('nav-history').classList.add('active');
-        nav.style.display = 'flex';
-        nav.classList.remove('hidden');
+        if (nav) {
+            nav.style.display = 'flex';
+            nav.classList.remove('hidden');
+        }
         
         checkDailyHabits();
         updateWeeklyProgress();
     } else {
-        nav.style.display = 'none';
-        nav.classList.add('hidden');
+        if (nav) {
+            nav.style.display = 'none';
+            nav.classList.add('hidden');
+        }
     }
     
     if (viewId === 'history-view') {
@@ -555,35 +559,59 @@ function renderHistory() {
 
 function markSetDone(checkbox, isWarmupOrCooldown = false) {
     const row = checkbox.closest('.set-row');
+    const card = checkbox.closest('.exercise-card');
     if (checkbox.checked) {
         row.classList.add('completed');
         if (!isWarmupOrCooldown) {
-            startTimer();
+            startInlineTimer(card);
         }
     } else {
         row.classList.remove('completed');
     }
 }
 
-function startTimer() {
-    const overlay = document.getElementById('timer-overlay');
-    const valSpan = document.getElementById('timer-val');
+let currentTimerInterval;
+function startInlineTimer(card) {
+    clearInterval(currentTimerInterval);
+    const existingTimer = document.querySelector('.inline-timer');
+    if (existingTimer) {
+        existingTimer.remove();
+    }
+
+    const timerDiv = document.createElement('div');
+    timerDiv.className = 'inline-timer';
+    timerDiv.innerHTML = `
+        <span class="inline-timer-text">
+            <i data-lucide="timer" class="lucide-sm"></i> Poilsis: <span class="timer-countdown-val">60</span>s
+        </span>
+        <span class="inline-timer-skip" onclick="skipInlineTimer(this)">Praleisti</span>
+    `;
     
-    overlay.classList.add('visible');
-    
-    clearInterval(timerInterval);
+    card.appendChild(timerDiv);
+    if (window.lucide) lucide.createIcons();
+
     let count = 60;
-    valSpan.textContent = count;
-    
-    timerInterval = setInterval(() => {
+    const countdownVal = timerDiv.querySelector('.timer-countdown-val');
+
+    currentTimerInterval = setInterval(() => {
         count--;
-        valSpan.textContent = count;
+        if (countdownVal) {
+            countdownVal.textContent = count;
+        }
         if (count <= 0) {
-            clearInterval(timerInterval);
-            overlay.classList.remove('visible');
-            if(navigator.vibrate) navigator.vibrate(200);
+            clearInterval(currentTimerInterval);
+            timerDiv.remove();
+            if (navigator.vibrate) navigator.vibrate(200);
         }
     }, 1000);
+}
+
+function skipInlineTimer(btn) {
+    clearInterval(currentTimerInterval);
+    const timerDiv = btn.closest('.inline-timer');
+    if (timerDiv) {
+        timerDiv.remove();
+    }
 }
 
 function deleteHistoryItem(index) {
