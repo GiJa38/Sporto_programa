@@ -54,6 +54,28 @@ const defaultWorkouts = {
         { name: 'Krūtinės atvėrimas ant volo', gear: 'Trumpas volas', sets: 1, reps: '2-3 min', isWeight: false, desc: 'Atsigulkite skersai volo po mentėmis, prilaikykite galvą ir atsiloškite.', video: 'https://www.youtube.com/results?search_query=foam+roller+thoracic+extension' },
         // Tempimas
         { name: 'Tempimas: Vaiko poza ir pilnas atsipalaidavimas', gear: 'Kilimėlis', sets: 1, reps: '3-4 min.', isWeight: false, desc: 'Vaiko poza, stuburo tempimas, gilus kvėpavimas nugaros įtampos atpalaidavimui.', video: 'https://www.youtube.com/results?search_query=full+body+cool+down+stretches' }
+    ],
+    'RYTINE': [
+        { name: '1. Kaklo ir pečių sukimai', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: 'Po 6–8 kartus lėtai į abi puses, po to platūs pečių sukimai.', video: 'https://www.youtube.com/results?search_query=neck+and+shoulder+rolls+warm+up' },
+        { name: '2. Rankų mojai ir krūtinės atvėrimas', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '30 sek. plačiai skėskite rankas į šonus ir kryžiuokite priešais save.', video: 'https://www.youtube.com/results?search_query=arm+crossover+chest+opener' },
+        { name: '3. Sienos angelai („Wall Angels“)', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '10–12 kartų. Atsistokite nugara prie sienos, slinkite „L“ rankomis aukštyn ir žemyn.', video: 'https://www.youtube.com/results?search_query=wall+angels+exercise+posture' },
+        { name: '4. Liemens sukimai ir šonų tempimas', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: 'Po 8 kartus į kiekvieną pusę.', video: 'https://www.youtube.com/results?search_query=standing+torso+twist+stretch' },
+        { name: '5. Pritūpimai su rankų iškėlimu', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '10–12 kartų. Pritūpus apačioje iškelkite rankas virš galvos.', video: 'https://www.youtube.com/results?search_query=squat+with+arm+raise' },
+        { name: '6. Įtūpstas su liemens pasukimu', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: 'Po 6 kartus kiekvienai pusei.', video: 'https://www.youtube.com/results?search_query=lunge+with+spinal+twist' },
+        { name: '7. Dinaminis „Šuo-Kobra“', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '8–10 perėjimų iš „Žemyn žiūrinčio šuns“ į kobros/išsitiesimo pozą.', video: 'https://www.youtube.com/results?search_query=downward+dog+to+cobra+flow' },
+        { name: '8. Švytuokliniai kojų mojai', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: 'Po 10 kartų kojai į priekį/atgal ir į šonus.', video: 'https://www.youtube.com/results?search_query=leg+swings+dynamic+warm+up' },
+        { name: '9. Pėdų ir čiurnų sukimai', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: 'Po 10 ratų kiekvienai kojai.', video: 'https://www.youtube.com/results?search_query=ankle+rolls+mobility' },
+        { name: '10. Pasistiebimai ant pėdų', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '15–20 kartų. Aktyvina blauzdų raumenis ir pėdos skliautą.', video: 'https://www.youtube.com/results?search_query=calf+raises+ankle+stability' }
+    ],
+    'VAKARINE': [
+        { name: '1. Pečių prasukimai su diržu', gear: 'Diržas', sets: 1, reps: '1', isWeight: false, desc: '10–12 pakartojimų. Laikykite ištemptą diržą ir lėtai tiesiomis rankomis perkelkite jį už nugaros ir atgal.', video: 'https://www.youtube.com/results?search_query=shoulder+dislocation+with+strap' },
+        { name: '2. Dvigubas pagurklis („Chin Tucks“)', gear: 'Kūno svoris', sets: 1, reps: '1', isWeight: false, desc: '12–15 kartų. Sėdint tiesiai, stumkite galvą horizontaliai atgal, užlaikykite 2–3 sek.', video: 'https://www.youtube.com/results?search_query=chin+tuck+posture+exercise' },
+        { name: '3. Katės ir šuns poza (Katė-Kupranugaris)', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: '45 sek. Įkvepiant rieskite nugarą žemyn, iškvepiant – apvalinkite į viršų.', video: 'https://www.youtube.com/results?search_query=cat+cow+stretch' },
+        { name: '4. Paukštis-šuo', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: 'Keturiomis tieskite priešingą ranką ir koją, stabilizuokite stuburą. Po 12–15 kartų kiekvienai pusei.', video: 'https://www.youtube.com/results?search_query=bird+dog+exercise' },
+        { name: '5. Gili vaiko poza su pasukimu', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: 'Po 30 sek. kiekvienai pusei, tempiant nugarą.', video: 'https://www.youtube.com/results?search_query=childs+pose+with+rotation' },
+        { name: '6. Nugaros sukimas gulint (Suktuko poza)', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: 'Po 30 sek. vienam šonui.', video: 'https://www.youtube.com/results?search_query=supine+spinal+twist+stretch' },
+        { name: '7. Drugelio poza ant nugaros', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: '45 sek. atveriant klubus ir giliai kvėpuojant.', video: 'https://www.youtube.com/results?search_query=reclining+butterfly+pose' },
+        { name: '8. Kelių pritraukimas prie krūtinės', gear: 'Kilimėlis', sets: 1, reps: '1', isWeight: false, desc: '1 min. gulint ant nugaros, švelniai pasisupuojant į šonus.', video: 'https://www.youtube.com/results?search_query=knees+to+chest+rocking' }
     ]
 };
 
@@ -69,8 +91,8 @@ function loadData() {
         custom = JSON.parse(localStorage.getItem('custom_workouts'));
     } catch(e) {}
     
-    // Force reset custom workouts if they don't have the new warm-up and stretches
-    if (!custom || !custom.NAMAI_1 || custom.NAMAI_1.length < 10 || !custom.NAMAI_2 || custom.NAMAI_2.length < 11) {
+    // Force reset custom workouts if they don't have the new warm-up, stretches or habits
+    if (!custom || !custom.NAMAI_1 || custom.NAMAI_1.length < 10 || !custom.NAMAI_2 || custom.NAMAI_2.length < 11 || !custom.RYTINE || !custom.VAKARINE) {
         workouts = JSON.parse(JSON.stringify(defaultWorkouts));
         localStorage.setItem('custom_workouts', JSON.stringify(workouts));
     } else {
@@ -89,6 +111,8 @@ function openEditWorkouts(type) {
     if(type === 'NAMAI_1') displayTitle = '1 Diena';
     if(type === 'NAMAI_2') displayTitle = '2 Diena';
     if(type === 'NAMAI_3') displayTitle = '3 Diena';
+    if(type === 'RYTINE') displayTitle = 'Rytinė mankšta';
+    if(type === 'VAKARINE') displayTitle = 'Vakarinė mankšta';
     document.getElementById('edit-workout-title').textContent = displayTitle + ' (Koregavimas)';
     
     const container = document.getElementById('edit-exercise-container');
@@ -109,17 +133,19 @@ function createEditBlock(ex) {
     card.className = 'exercise-card edit-card';
     card.style.borderLeft = "4px solid var(--accent)";
     
+    const isHabit = currentEditType === 'RYTINE' || currentEditType === 'VAKARINE';
+    
     card.innerHTML = `
         <button class="btn btn-icon edit-action-btn" style="color:var(--danger); top:12px; right:12px;" onclick="this.closest('.exercise-card').remove()">
             <i data-lucide="trash-2" class="lucide-sm"></i>
         </button>
         
         <div class="form-group" style="padding-right: 32px;">
-            <label class="form-label">Pratimo Pavadinimas</label>
+            <label class="form-label">${isHabit ? 'Mankštos pratimo pavadinimas' : 'Pratimo Pavadinimas'}</label>
             <input type="text" class="form-input edit-name" value="${ex.name || ''}" placeholder="Pvz., Pritūpimai">
         </div>
         
-        <div class="form-row">
+        <div class="form-row" style="${isHabit ? 'display: none;' : ''}">
             <div class="form-group">
                 <label class="form-label">Inventorius</label>
                 <input type="text" class="form-input edit-gear" value="${ex.gear || ''}" placeholder="Pvz., Hanteliai">
@@ -130,7 +156,7 @@ function createEditBlock(ex) {
             </div>
         </div>
         
-        <div class="form-row">
+        <div class="form-row" style="${isHabit ? 'display: none;' : ''}">
             <div class="form-group">
                 <label class="form-label">Pakartojimai (Laukas)</label>
                 <input type="text" class="form-input edit-reps" value="${ex.reps || ''}" placeholder="Pvz., 10-12 k.">
@@ -147,7 +173,7 @@ function createEditBlock(ex) {
         </div>
         
         <div class="form-group">
-            <label class="form-label">Paaiškinimas</label>
+            <label class="form-label">${isHabit ? 'Aprašymas / Nurodymai' : 'Paaiškinimas'}</label>
             <textarea class="form-input form-textarea edit-desc" placeholder="Trumpi jūsų žodžiai atsiminimui...">${ex.desc || ''}</textarea>
         </div>
     `;
@@ -156,7 +182,16 @@ function createEditBlock(ex) {
 
 function addBlankExerciseForm() {
     const container = document.getElementById('edit-exercise-container');
-    const newEx = { name: '', gear: '', sets: 3, reps: '', isWeight: false, desc: '', video: '' };
+    const isHabit = currentEditType === 'RYTINE' || currentEditType === 'VAKARINE';
+    const newEx = { 
+        name: '', 
+        gear: isHabit ? 'Kūno svoris' : '', 
+        sets: 1, 
+        reps: '1', 
+        isWeight: false, 
+        desc: '', 
+        video: '' 
+    };
     container.appendChild(createEditBlock(newEx));
     if (window.lucide) lucide.createIcons();
     
@@ -184,12 +219,43 @@ function saveWorkouts() {
     workouts[currentEditType] = newArray;
     localStorage.setItem('custom_workouts', JSON.stringify(workouts));
     
+    if (currentEditType === 'RYTINE' || currentEditType === 'VAKARINE') {
+        renderHabitSteps();
+    } else {
+        renderTodayStrengthCard();
+    }
+    
     // Vibrate to confirm
     if(navigator.vibrate) navigator.vibrate([50, 50, 50]);
     goHome();
 }
 
-
+function renderHabitSteps() {
+    const renderSteps = (type, listId) => {
+        const container = document.getElementById(listId);
+        if (!container) return;
+        container.innerHTML = '';
+        
+        const list = workouts[type] || [];
+        list.forEach((ex) => {
+            const item = document.createElement('div');
+            item.className = 'step-item';
+            item.innerHTML = `
+                <div>
+                    <div class="step-text">${ex.name}</div>
+                    ${ex.desc ? `<div class="step-desc">${ex.desc}</div>` : ''}
+                </div>
+                ${ex.video ? `<a href="${ex.video}" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>` : ''}
+            `;
+            container.appendChild(item);
+        });
+    };
+    
+    renderSteps('RYTINE', 'list-rytine');
+    renderSteps('VAKARINE', 'list-vakarine');
+    
+    if (window.lucide) lucide.createIcons();
+}
 
 let selectedDate = new Date();
 
@@ -210,6 +276,7 @@ function updateDateBadge() {
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     updateDateBadge();
+    renderHabitSteps();
 
     renderWeeklySchedule();
     renderMonthlyChallenge();
@@ -220,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showView('home-view');
 });
 
-const dayWorkouts = {
+const defaultDayWorkouts = {
     1: { name: 'Apatinė', type: 'NAMAI_1' },
     2: { name: 'Mankštos', type: null },
     3: { name: 'Viršutinė', type: 'NAMAI_2' },
@@ -229,6 +296,92 @@ const dayWorkouts = {
     6: { name: 'Mankštos', type: null },
     0: { name: 'Mankštos', type: null }
 };
+
+let dayWorkouts = JSON.parse(localStorage.getItem('weekly_schedule')) || defaultDayWorkouts;
+
+function openScheduleSettings() {
+    showView('schedule-settings-view');
+    const container = document.getElementById('schedule-settings-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const dayNames = {
+        1: 'Pirmadienis',
+        2: 'Antradienis',
+        3: 'Trečiadienis',
+        4: 'Ketvirtadienis',
+        5: 'Penktadienis',
+        6: 'Šeštadienis',
+        0: 'Sekmadienis'
+    };
+
+    const order = [1, 2, 3, 4, 5, 6, 0];
+
+    order.forEach(dayIdx => {
+        const currentVal = dayWorkouts[dayIdx].type || 'null';
+        const group = document.createElement('div');
+        group.className = 'form-group';
+        group.style.marginBottom = '14px';
+        group.innerHTML = `
+            <label class="form-label" style="font-weight:700; margin-bottom: 6px;">${dayNames[dayIdx]}</label>
+            <select class="form-input day-schedule-select" data-day="${dayIdx}" style="background: rgba(0,0,0,0.3); color:#fff; border: 1px solid var(--card-border); border-radius: 8px;">
+                <option value="null" ${currentVal === 'null' ? 'selected' : ''}>Poilsis / Mankštos</option>
+                <option value="NAMAI_1" ${currentVal === 'NAMAI_1' ? 'selected' : ''}>1 Diena: Apatinė dalis</option>
+                <option value="NAMAI_2" ${currentVal === 'NAMAI_2' ? 'selected' : ''}>2 Diena: Viršutinė dalis</option>
+                <option value="NAMAI_3" ${currentVal === 'NAMAI_3' ? 'selected' : ''}>3 Diena: Visas kūnas</option>
+            </select>
+        `;
+        container.appendChild(group);
+    });
+}
+
+function saveScheduleSettings() {
+    const container = document.getElementById('schedule-settings-container');
+    const selects = container.querySelectorAll('.day-schedule-select');
+    
+    const workoutNames = {
+        'NAMAI_1': 'Apatinė',
+        'NAMAI_2': 'Viršutinė',
+        'NAMAI_3': 'Visas K.',
+        'null': 'Mankštos'
+    };
+
+    selects.forEach(select => {
+        const dayIdx = parseInt(select.getAttribute('data-day'));
+        const typeVal = select.value === 'null' ? null : select.value;
+        dayWorkouts[dayIdx] = {
+            name: workoutNames[select.value],
+            type: typeVal
+        };
+    });
+
+    localStorage.setItem('weekly_schedule', JSON.stringify(dayWorkouts));
+    
+    renderWeeklySchedule();
+    renderMonthlyChallenge();
+    renderTodayStrengthCard();
+    checkDailyHabits();
+
+    if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
+    goHome();
+}
+
+function isDayFullyCompleted(date) {
+    const dateStr = date.toDateString();
+    const dayIdx = date.getDay();
+    const dayConfig = dayWorkouts[dayIdx];
+    if (!dayConfig) return false;
+    
+    const dayEntries = workoutHistory.filter(h => new Date(h.date).toDateString() === dateStr);
+    
+    const hasMorning = dayEntries.some(h => h.type === 'Rytinė mankšta');
+    const hasEvening = dayEntries.some(h => h.type === 'Vakarinė mankšta');
+    
+    const isStrengthDay = dayConfig.type !== null;
+    const hasStrength = isStrengthDay && dayEntries.some(h => h.type === dayConfig.type);
+    
+    return isStrengthDay ? (hasMorning && hasEvening && hasStrength) : (hasMorning && hasEvening);
+}
 
 function renderWeeklySchedule() {
     const grid = document.getElementById('weekly-schedule-grid');
@@ -262,7 +415,7 @@ function renderWeeklySchedule() {
         const isStrengthDay = dayConfig.type !== null;
         const hasStrength = isStrengthDay && dayWorkoutsList.some(h => h.type === dayConfig.type);
 
-        const isCompleted = isStrengthDay ? (hasMorning && hasEvening && hasStrength) : (hasMorning && hasEvening);
+        const isCompleted = isDayFullyCompleted(dateOfThisDay);
         if (isCompleted) completedCount++;
 
         const dayCard = document.createElement('div');
@@ -313,16 +466,13 @@ function renderMonthlyChallenge() {
 
     let checkDate = new Date(today);
     while (true) {
-        const checkStr = checkDate.toDateString();
-        const hasWorkout = workoutHistory.some(h => new Date(h.date).toDateString() === checkStr);
-        if (hasWorkout) {
+        if (isDayFullyCompleted(checkDate)) {
             tempStreak++;
             checkDate.setDate(checkDate.getDate() - 1);
         } else {
             if (checkDate.toDateString() === today.toDateString()) {
                 checkDate.setDate(checkDate.getDate() - 1);
-                const hasWorkoutYesterday = workoutHistory.some(h => new Date(h.date).toDateString() === checkDate.toDateString());
-                if (hasWorkoutYesterday) {
+                if (isDayFullyCompleted(checkDate)) {
                     tempStreak = 1;
                     checkDate.setDate(checkDate.getDate() - 1);
                     continue;
@@ -345,10 +495,23 @@ function renderMonthlyChallenge() {
         last30Days.push(date);
     }
 
+    // Pad first week to align under correct weekday columns (Pr, An, Tr, Kt, Pn, Št, Sk)
+    const firstDay = last30Days[0];
+    const firstDayOfWeek = firstDay.getDay(); // 0 = Sunday, 1 = Monday...
+    const paddingCells = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+    for (let p = 0; p < paddingCells; p++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'challenge-day empty';
+        emptyCell.style.border = 'none';
+        emptyCell.style.background = 'transparent';
+        grid.appendChild(emptyCell);
+    }
+
     last30Days.forEach(dateObj => {
         const dateStr = dateObj.toDateString();
         const isToday = dateStr === today.toDateString();
-        const hasWorkout = workoutHistory.some(h => new Date(h.date).toDateString() === dateStr);
+        const hasWorkout = isDayFullyCompleted(dateObj);
 
         const dayCell = document.createElement('div');
         dayCell.className = `challenge-day ${isToday ? 'today' : ''} ${hasWorkout ? 'completed' : ''}`;
@@ -604,6 +767,21 @@ function finishWorkout() {
 
 function renderHistory() {
     renderMonthlyChallenge();
+    
+    // Calculate stats
+    const totalWorkouts = workoutHistory.length;
+    const uniqueDates = new Set(workoutHistory.map(h => new Date(h.date).toDateString()));
+    let completedDaysCount = 0;
+    uniqueDates.forEach(dateStr => {
+        if (isDayFullyCompleted(new Date(dateStr))) {
+            completedDaysCount++;
+        }
+    });
+
+    const statsTotalEl = document.getElementById('stats-total-workouts');
+    const statsCompletedEl = document.getElementById('stats-completed-days');
+    if (statsTotalEl) statsTotalEl.textContent = totalWorkouts;
+    if (statsCompletedEl) statsCompletedEl.textContent = completedDaysCount;
     
     const container = document.getElementById('history-container');
     container.innerHTML = '';
@@ -1005,30 +1183,28 @@ function renderTodayStrengthCard() {
     if (!container) return;
     
     const dayOfWeek = selectedDate.getDay();
+    const dayConfig = dayWorkouts[dayOfWeek];
     
-    let type = null;
+    let type = dayConfig ? dayConfig.type : null;
     let title = '';
     let desc = '';
     let icon = 'coffee';
     let colorClass = 'text-accent';
     let borderStyle = 'border-left: 4px solid var(--accent);';
     
-    if (dayOfWeek === 1) {
-        type = 'NAMAI_1';
+    if (type === 'NAMAI_1') {
         title = '1 DIENA: Apatinė dalis & Sėdmenys';
         desc = 'Pritūpimai, sėdmenų tiltas, šoninis kėlimas, įtūpstai atgal ir donkey kicks.';
         icon = 'arrow-down';
         colorClass = 'text-success';
         borderStyle = 'border-left: 4px solid var(--success);';
-    } else if (dayOfWeek === 3) {
-        type = 'NAMAI_2';
+    } else if (type === 'NAMAI_2') {
         title = '2 DIENA: Viršutinė dalis & Krūtinė';
         desc = 'Svarelių spaudimas, atsispaudimai, trauka, bicepso ir tricepso tiesimas.';
         icon = 'target';
         colorClass = 'text-success';
         borderStyle = 'border-left: 4px solid var(--success);';
-    } else if (dayOfWeek === 5) {
-        type = 'NAMAI_3';
+    } else if (type === 'NAMAI_3') {
         title = '3 DIENA: Visas kūnas & Šerdis';
         desc = 'Thrusters, lenta su lenkimu, atsilenkimai su spaudimu, rusiškas sukimasis.';
         icon = 'activity';

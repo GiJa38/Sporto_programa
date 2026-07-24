@@ -26,7 +26,7 @@
     <nav class="top-nav" id="top-nav-bar">
         <a href="javascript:void(0)" class="nav-tab active" id="nav-home" onclick="showView('home-view')">
             <i data-lucide="dumbbell" class="lucide-sm"></i>
-            <span>Dienos Planas</span>
+            <span>Programa</span>
         </a>
         <a href="javascript:void(0)" class="nav-tab" id="nav-history" onclick="showView('history-view')">
             <i data-lucide="bar-chart-2" class="lucide-sm"></i>
@@ -43,14 +43,33 @@
 
         <!-- SAVAITĖS TVARKARAŠTIS -->
         <div class="glass-card mb-3" style="padding: 16px;">
-            <h3 class="section-title text-gradient" style="font-size: 15px; margin-bottom: 12px; font-weight: 700;"><i data-lucide="calendar"></i> Savaitės Planas</h3>
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="section-title text-gradient m-0" style="font-size: 15px; font-weight: 700;"><i data-lucide="calendar"></i> Savaitės Planas</h3>
+                <button class="btn btn-icon" onclick="openScheduleSettings()" style="padding: 6px; border-radius: 8px;" title="Keisti dienų planą">
+                    <i data-lucide="settings" class="lucide-sm"></i>
+                </button>
+            </div>
             <div class="schedule-grid" id="weekly-schedule-grid">
                 <!-- Injected via app.js -->
             </div>
         </div>
 
+        <!-- MĖNESIO IŠŠŪKIS -->
+        <div class="glass-card mb-3" style="padding: 12px 14px;">
+            <div class="flex justify-between items-center mb-2">
+                <span class="fw-700" style="font-size: 14px; color: var(--success); display: flex; align-items: center; gap: 6px;"><i data-lucide="award" class="lucide-sm"></i> 30 Dienų Iššūkis</span>
+                <span id="streak-counter" class="date-badge" style="color: var(--warning); border-color: rgba(255,214,10,0.2); font-size: 11px; padding: 2px 8px;">Serija: 0 d. 🔥</span>
+            </div>
+            <div class="challenge-weekdays">
+                <span>Pr</span><span>An</span><span>Tr</span><span>Kt</span><span>Pn</span><span>Št</span><span>Sk</span>
+            </div>
+            <div class="challenge-grid" id="challenge-grid-container">
+                <!-- 30 days injected here -->
+            </div>
+        </div>
+
         <!-- ŠIANDIENOS VEIKLA -->
-        <h2 class="section-title text-success" style="margin-top: 24px; font-size: 16px;"><i data-lucide="check-circle"></i> Šiandienos Užduotys</h2>
+        <h2 class="section-title text-success" style="margin-top: 24px; font-size: 16px;"><i data-lucide="check-circle"></i> Dienos programa</h2>
 
         <!-- 1. RYTINĖ MANKŠTA -->
         <div class="glass-card collapsible-card" id="card-rytine" style="border-left: 4px solid var(--warning); padding: 16px; margin-bottom: 12px;">
@@ -63,6 +82,9 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                    <button class="btn btn-icon" onclick="openEditWorkouts('RYTINE')" style="padding: 6px; border-radius: 8px;">
+                        <i data-lucide="pencil" class="lucide-sm"></i>
+                    </button>
                     <button id="btn-ryt" class="btn btn-icon done-check-btn" onclick="logHabit('Rytinė mankšta')" style="padding: 6px; border-radius: 8px;">
                         <i data-lucide="circle" class="lucide-sm"></i>
                     </button>
@@ -70,77 +92,8 @@
                 </div>
             </div>
             <div class="collapsible-content hidden" id="content-rytine" style="margin-top: 14px;">
-                <div class="step-list">
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">1. Kaklo ir pečių sukimai</div>
-                            <div class="step-desc">Po 6–8 kartus lėtai į abi puses, po to platūs pečių sukimai</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=neck+and+shoulder+rolls+warm+up" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">2. Rankų mojai ir krūtinės atvėrimas</div>
-                            <div class="step-desc">30 sek. plačiai skėskite rankas į šonus ir kryžiuokite priešais save</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=arm+crossover+chest+opener" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">3. Sienos angelai („Wall Angels“)</div>
-                            <div class="step-desc">10–12 kartų. Atsistokite nugara prie sienos, slinkite „L“ rankomis aukštyn ir žemyn</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=wall+angels+exercise+posture" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">4. Liemens sukimai ir šonų tempimas</div>
-                            <div class="step-desc">Po 8 kartus į kiekvieną pusę</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=standing+torso+twist+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">5. Pritūpimai su rankų iškėlimu</div>
-                            <div class="step-desc">10–12 kartų. Pritūpus apačioje iškelkite rankas virš galvos</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=squat+with+arm+raise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">6. Įtūpstas su liemens pasukimu</div>
-                            <div class="step-desc">Po 6 kartus kiekvienai pusei</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=lunge+with+spinal+twist" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">7. Dinaminis „Šuo-Kobra“</div>
-                            <div class="step-desc">8–10 perėjimų iš „Žemyn žiūrinčio šuns“ į kobros/išsitiesimo pozą</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=downward+dog+to+cobra+flow" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">8. Švytuokliniai kojų mojai</div>
-                            <div class="step-desc">Po 10 kartų kojai į priekį/atgal ir į šonus</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=leg+swings+dynamic+warm+up" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">9. Pėdų ir čiurnų sukimai</div>
-                            <div class="step-desc">Po 10 ratų kiekvienai kojai</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=ankle+rolls+mobility" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">10. Pasistiebimai ant pėdų</div>
-                            <div class="step-desc">15–20 kartų. Aktyvina blauzdų raumenis ir pėdos skliautą</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=calf+raises+ankle+stability" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
+                <div class="step-list" id="list-rytine">
+                    <!-- Injected dynamically via app.js -->
                 </div>
             </div>
         </div>
@@ -161,6 +114,9 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3" onclick="event.stopPropagation();">
+                    <button class="btn btn-icon" onclick="openEditWorkouts('VAKARINE')" style="padding: 6px; border-radius: 8px;">
+                        <i data-lucide="pencil" class="lucide-sm"></i>
+                    </button>
                     <button id="btn-vak" class="btn btn-icon done-check-btn" onclick="logHabit('Vakarinė mankšta')" style="padding: 6px; border-radius: 8px;">
                         <i data-lucide="circle" class="lucide-sm"></i>
                     </button>
@@ -168,63 +124,8 @@
                 </div>
             </div>
             <div class="collapsible-content hidden" id="content-vakarine" style="margin-top: 14px;">
-                <div class="step-list">
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">1. Pečių prasukimai su diržu</div>
-                            <div class="step-desc">10–12 pakartojimų. Laikykite ištemptą diržą ir lėtai tiesiomis rankomis perkelkite jį už nugaros ir atgal</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=shoulder+dislocation+with+strap" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">2. Dvigubas pagurklis („Chin Tucks“)</div>
-                            <div class="step-desc">12–15 kartų. Sėdint tiesiai, stumkite galvą horizontaliai atgal, užlaikykite 2–3 sek.</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=chin+tuck+posture+exercise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">3. Katės ir šuns poza (Katė-Kupranugaris)</div>
-                            <div class="step-desc">45 sek. Įkvepiant rieskite nugarą žemyn, iškvepiant – apvalinkite į viršų</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=cat+cow+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">4. Paukštis-šuo</div>
-                            <div class="step-desc">Keturiomis tieskite priešingą ranką ir koją, stabilizuokite stuburą. Po 12–15 kartų kiekvienai pusei</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=bird+dog+exercise" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">5. Gili vaiko poza su pasukimu</div>
-                            <div class="step-desc">Po 30 sek. kiekvienai pusei, tempiant nugarą</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=childs+pose+with+rotation" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">6. Nugaros sukimas gulint (Suktuko poza)</div>
-                            <div class="step-desc">Po 30 sek. vienam šonui</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=supine+spinal+twist+stretch" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">7. Drugelio poza ant nugaros</div>
-                            <div class="step-desc">45 sek. atveriant klubus ir giliai kvėpuojant</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=reclining+butterfly+pose" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
-                    <div class="step-item">
-                        <div>
-                            <div class="step-text">8. Kelių pritraukimas prie krūtinės</div>
-                            <div class="step-desc">1 min. gulint ant nugaros, švelniai pasisupuojant į šonus</div>
-                        </div>
-                        <a href="https://www.youtube.com/results?search_query=knees+to+chest+rocking" target="_blank" class="play-btn"><i data-lucide="play" class="lucide-sm"></i></a>
-                    </div>
+                <div class="step-list" id="list-vakarine">
+                    <!-- Injected dynamically via app.js -->
                 </div>
             </div>
         </div>
@@ -336,22 +237,46 @@
     </div>
 
 
+    <!-- SCHEDULE SETTINGS VIEW -->
+    <div id="schedule-settings-view" class="view-section hidden">
+        <div class="flex items-center justify-between mb-3 mt-1">
+            <button class="btn btn-ghost" onclick="goHome()"><i data-lucide="chevron-left" class="lucide-lg"></i></button>
+            <h2 class="fw-700 m-0" style="font-size: 20px; color: var(--accent);">Tvarkaraščio Nustatymai</h2>
+            <div style="width: 44px;"></div>
+        </div>
+        
+        <p class="text-dim mb-3" style="font-size: 13px; text-align: center;">Pasirinkite, kurią dieną kokią jėgos treniruotę atliksite.</p>
+        
+        <div class="glass-card mb-3" id="schedule-settings-container" style="padding: 16px;">
+            <!-- Dropdowns injected via app.js -->
+        </div>
+        
+        <button class="btn btn-success" onclick="saveScheduleSettings()">
+            <i data-lucide="save"></i> Išsaugoti Tvarkaraštį
+        </button>
+        
+        <div class="spacer-bottom"></div>
+    </div>
+
+
 
     <!-- HISTORY VIEW -->
     <div id="history-view" class="view-section hidden">
         <h2 class="section-title text-success mb-3"><i data-lucide="check-square"></i> Jūsų Pasiekimai</h2>
-        
-        <!-- MĖNESIO IŠŠŪKIS -->
-        <div class="glass-card mb-3" style="padding: 18px;">
-            <div class="flex justify-between items-center mb-3">
-                <span class="fw-700" style="font-size: 15px; color: var(--success); display: flex; align-items: center; gap: 6px;"><i data-lucide="award" class="lucide-sm"></i> 30 Dienų Iššūkis</span>
-                <span id="streak-counter" class="date-badge" style="color: var(--warning); border-color: rgba(255,214,10,0.2); font-size: 12px; padding: 4px 10px;">Serija: 0 d. 🔥</span>
+        <!-- STATISTIKOS SUVESTINĖ -->
+        <div class="glass-card mb-3" style="padding: 14px; background: rgba(50, 215, 75, 0.05); border-color: rgba(50, 215, 75, 0.15);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: center;">
+                <div style="background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Viso įrašų</div>
+                    <div id="stats-total-workouts" style="font-size: 20px; font-weight: 700; color: var(--success); margin-top: 4px;">0</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Užbaigtų dienų</div>
+                    <div id="stats-completed-days" style="font-size: 20px; font-weight: 700; color: var(--warning); margin-top: 4px;">0</div>
+                </div>
             </div>
-            <div class="challenge-grid" id="challenge-grid-container">
-                <!-- 30 days injected here -->
-            </div>
-            <p class="text-dim mt-2 m-0" style="font-size: 11px; text-align: center; line-height: 1.3;">Atlikite bet kokį pratimo įrašą kasdien, kad pratęstumėte seriją.</p>
         </div>
+
 
         <div id="history-container" class="flex-col mb-3">
             <!-- Items Injected Here via app.js -->
