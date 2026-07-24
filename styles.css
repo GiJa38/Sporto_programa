@@ -252,8 +252,8 @@ header { display: flex; flex-direction: column; align-items: center; gap: 6px; a
 .schedule-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-top: 10px;
+    gap: 4px;
+    margin-top: 8px;
 }
 .schedule-day {
     display: flex;
@@ -261,8 +261,8 @@ header { display: flex; flex-direction: column; align-items: center; gap: 6px; a
     align-items: center;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--card-border);
-    border-radius: 10px;
-    padding: 10px 2px;
+    border-radius: 8px;
+    padding: 6px 1px;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -284,48 +284,43 @@ header { display: flex; flex-direction: column; align-items: center; gap: 6px; a
     box-shadow: 0 0 12px rgba(94, 92, 230, 0.2);
 }
 .schedule-day-name {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     color: var(--text-dim);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 .schedule-day.today .schedule-day-name {
     color: var(--accent);
 }
 .schedule-day-indicators {
     display: flex;
-    gap: 3px;
+    gap: 2px;
     margin: 4px 0;
+    justify-content: center;
+    width: 100%;
 }
 .ind-dot {
-    width: 14px;
-    height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.15);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
     transition: var(--transition);
 }
-.ind-dot svg {
-    width: 10px;
-    height: 10px;
-    stroke-width: 3;
+.ind-dot.morning.done {
+    background: var(--warning);
 }
-.ind-dot.done.morning {
-    color: var(--warning);
+.ind-dot.evening.done {
+    background: var(--primary);
 }
-.ind-dot.done.evening {
-    color: var(--primary);
-}
-.ind-dot.done.strength {
-    color: var(--success);
+.ind-dot.strength.done {
+    background: var(--success);
 }
 .schedule-day-workout-tag {
-    font-size: 8px;
+    font-size: 7px;
     text-transform: uppercase;
     font-weight: 700;
     color: var(--text-dim);
-    margin-top: 4px;
+    margin-top: 2px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;

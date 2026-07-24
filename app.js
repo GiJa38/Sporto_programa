@@ -423,9 +423,9 @@ function renderWeeklySchedule() {
         
         let statusHtml = `
             <div class="schedule-day-indicators">
-                <span class="ind-dot ${hasMorning ? 'done morning' : ''}" title="Rytinė mankšta"><i data-lucide="sun"></i></span>
-                <span class="ind-dot ${hasEvening ? 'done evening' : ''}" title="Vakarinė mankšta"><i data-lucide="moon"></i></span>
-                ${isStrengthDay ? `<span class="ind-dot ${hasStrength ? 'done strength' : ''}" title="Jėgos treniruotė"><i data-lucide="dumbbell"></i></span>` : ''}
+                <span class="ind-dot morning ${hasMorning ? 'done' : ''}" title="Rytinė mankšta"></span>
+                <span class="ind-dot evening ${hasEvening ? 'done' : ''}" title="Vakarinė mankšta"></span>
+                ${isStrengthDay ? `<span class="ind-dot strength ${hasStrength ? 'done' : ''}" title="Jėgos treniruotė"></span>` : ''}
             </div>
         `;
 
