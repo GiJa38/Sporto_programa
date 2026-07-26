@@ -136,11 +136,19 @@ function createEditBlock(ex) {
     const isHabit = currentEditType === 'RYTINE' || currentEditType === 'VAKARINE';
     
     card.innerHTML = `
-        <button class="btn btn-icon edit-action-btn" style="color:var(--danger); top:12px; right:12px;" onclick="this.closest('.exercise-card').remove()">
-            <i data-lucide="trash-2" class="lucide-sm"></i>
-        </button>
+        <div class="edit-actions-group">
+            <button class="btn" onclick="moveExerciseUp(this)" title="Pakelti aukštyn">
+                <i data-lucide="chevron-up" class="lucide-sm"></i>
+            </button>
+            <button class="btn" onclick="moveExerciseDown(this)" title="Nuleisti žemyn">
+                <i data-lucide="chevron-down" class="lucide-sm"></i>
+            </button>
+            <button class="btn" style="color: var(--danger);" onclick="this.closest('.exercise-card').remove()" title="Ištrinti">
+                <i data-lucide="trash-2" class="lucide-sm"></i>
+            </button>
+        </div>
         
-        <div class="form-group" style="padding-right: 32px;">
+        <div class="form-group" style="padding-right: 100px;">
             <label class="form-label">${isHabit ? 'Mankštos pratimo pavadinimas' : 'Pratimo Pavadinimas'}</label>
             <input type="text" class="form-input edit-name" value="${ex.name || ''}" placeholder="Pvz., Pritūpimai">
         </div>
@@ -178,6 +186,22 @@ function createEditBlock(ex) {
         </div>
     `;
     return card;
+}
+
+function moveExerciseUp(button) {
+    const card = button.closest('.exercise-card');
+    const previous = card.previousElementSibling;
+    if (previous && previous.classList.contains('edit-card')) {
+        card.parentNode.insertBefore(card, previous);
+    }
+}
+
+function moveExerciseDown(button) {
+    const card = button.closest('.exercise-card');
+    const next = card.nextElementSibling;
+    if (next && next.classList.contains('edit-card')) {
+        card.parentNode.insertBefore(next, card);
+    }
 }
 
 function addBlankExerciseForm() {
@@ -765,111 +789,160 @@ function finishWorkout() {
     goHome();
 }
 
+function getCaloriesStats() {
+    const today = new Date();
+    
+    // Start of current week (Monday)
+    const currentDay = today.getDay();
+    const distanceToMonday = currentDay === 0 ? -6 : 1 - currentDay;
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() + distanceToMonday);
+    startOfWeek.setHours(0,0,0,0);
+    
+    // Start of current month
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    startOfMonth.setHours(0,0,0,0);
+    
+    let caloriesWeek = 0;
+    let caloriesMonth = 0;
+    
+    workoutHistory.forEach(h => {
+        const logDate = new Date(h.date);
+        let kcal = 0;
+        if (h.type === 'Rytinė mankšta') kcal = 50;
+        else if (h.type === 'Vakarinė mankšta') kcal = 30;
+        else if (h.type.startsWith('NAMAI')) kcal = 250;
+        
+        if (logDate >= startOfWeek) {
+            caloriesWeek += kcal;
+        }
+        if (logDate >= startOfMonth) {
+            caloriesMonth += kcal;
+        }
+    });
+    
+    return { week: caloriesWeek, month: caloriesMonth };
+}
+
 function renderHistory() {
     renderMonthlyChallenge();
     
-    // Calculate stats
-    const totalWorkouts = workoutHistory.length;
-    const uniqueDates = new Set(workoutHistory.map(h => new Date(h.date).toDateString()));
-    let completedDaysCount = 0;
-    uniqueDates.forEach(dateStr => {
-        if (isDayFullyCompleted(new Date(dateStr))) {
-            completedDaysCount++;
-        }
-    });
+    // Render Calories
+    const kcalStats = getCaloriesStats();
+    const statsWeekEl = document.getElementById('stats-calories-week');
+    const statsMonthEl = document.getElementById('stats-calories-month');
+    if (statsWeekEl) statsWeekEl.textContent = `${kcalStats.week} kcal`;
+    if (statsMonthEl) statsMonthEl.textContent = `${kcalStats.month} kcal`;
 
-    const statsTotalEl = document.getElementById('stats-total-workouts');
-    const statsCompletedEl = document.getElementById('stats-completed-days');
-    if (statsTotalEl) statsTotalEl.textContent = totalWorkouts;
-    if (statsCompletedEl) statsCompletedEl.textContent = completedDaysCount;
+    // Render Body Progress History
+    renderBodyProgressHistory();
+}
+
+function logBodyProgress() {
+    const weightInput = document.getElementById('input-weight');
+    const waistInput = document.getElementById('input-waist');
+    const hipsInput = document.getElementById('input-hips');
+    const armsInput = document.getElementById('input-arms');
     
-    const container = document.getElementById('history-container');
-    container.innerHTML = '';
+    const weight = parseFloat(weightInput.value);
+    const waist = parseFloat(waistInput.value);
+    const hips = parseFloat(hipsInput.value);
+    const arms = parseFloat(armsInput.value);
     
-    if (workoutHistory.length === 0) {
-        container.innerHTML = '<div class="glass-card" style="text-align: center; padding: 40px 20px;"><i data-lucide="inbox" class="text-dim mb-2 lucide-lg"></i><p class="text-dim">Istorija tuščia.</p></div>';
-        if (window.lucide) lucide.createIcons();
+    if (isNaN(weight) && isNaN(waist) && isNaN(hips) && isNaN(arms)) {
+        alert('Įveskite bent vieną matavimą!');
         return;
     }
-
-    const reversed = workoutHistory.map((item, index) => ({ item, index })).reverse();
-    let currentGroupDate = '';
     
-    reversed.forEach(({ item, index }) => {
-        const dateObj = new Date(item.date);
-        const logDateStr = dateObj.toLocaleDateString('lt-LT', { month: 'long', day: 'numeric' });
-        const timeStr = dateObj.toLocaleTimeString('lt-LT', { hour: '2-digit', minute: '2-digit' });
-        
-        if(logDateStr !== currentGroupDate) {
-            currentGroupDate = logDateStr;
-            const header = document.createElement('h3');
-            header.style.cssText = "font-size: 14px; margin: 15px 0 10px 0; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;";
-            header.textContent = currentGroupDate;
-            container.appendChild(header);
-        }
+    const newEntry = {
+        date: new Date().toISOString(),
+        weight: isNaN(weight) ? null : weight,
+        waist: isNaN(waist) ? null : waist,
+        hips: isNaN(hips) ? null : hips,
+        arms: isNaN(arms) ? null : arms
+    };
+    
+    let bodyProgress = JSON.parse(localStorage.getItem('body_progress') || '[]');
+    bodyProgress.push(newEntry);
+    localStorage.setItem('body_progress', JSON.stringify(bodyProgress));
+    
+    // Clear inputs
+    weightInput.value = '';
+    waistInput.value = '';
+    hipsInput.value = '';
+    armsInput.value = '';
+    
+    if (navigator.vibrate) navigator.vibrate(50);
+    renderHistory();
+}
 
-        let cardColor = 'var(--text-main)';
-        let typeName = item.type;
-        let iconName = 'activity';
+function renderBodyProgressHistory() {
+    const container = document.getElementById('measurements-history-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    let bodyProgress = JSON.parse(localStorage.getItem('body_progress') || '[]');
+    if (bodyProgress.length === 0) {
+        container.innerHTML = '<p class="text-dim" style="text-align:center; font-size:12px; margin: 10px 0;">Nėra jokių matavimų įrašų.</p>';
+        return;
+    }
+    
+    const sorted = [...bodyProgress].sort((a, b) => new Date(a.date) - new Date(b.date));
+    const renderedList = [];
+    
+    sorted.forEach((entry, idx) => {
+        const prev = idx > 0 ? sorted[idx - 1] : null;
         
-        if(item.type.startsWith('NAMAI')) {
-            cardColor = 'var(--success)';
-            if(item.type === 'NAMAI_1') typeName = '1 Diena: Apatinė dalis';
-            if(item.type === 'NAMAI_2') typeName = '2 Diena: Viršutinė dalis';
-            if(item.type === 'NAMAI_3') typeName = '3 Diena: Visas kūnas';
-            iconName = 'home';
-        }
+        const getDiff = (currVal, prevVal, unit) => {
+            if (currVal === null || prevVal === null) return '';
+            const diff = currVal - prevVal;
+            if (diff === 0) return '';
+            const sign = diff > 0 ? '+' : '';
+            const color = diff < 0 ? 'var(--success)' : 'var(--danger)';
+            return `<span style="font-size:10px; color:${color}; font-weight:700; margin-left:4px;">(${sign}${diff.toFixed(1)} ${unit})</span>`;
+        };
         
-        if(item.isHabit) {
-            let label = "Dienos Rutina";
-            if(item.type === 'Rytinė mankšta') label = "Rytinė Rutina";
-            if(item.type === 'Vakarinė mankšta') label = "Vakarinė Rutina";
-            
-            const minorCard = document.createElement('div');
-            minorCard.style.cssText = `background: rgba(255,255,255,0.02); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);`;
-            minorCard.innerHTML = `
-                <span style="font-size: 14px; color: var(--text-dim);"><i data-lucide="check" style="width:14px; color:var(--success);"></i> ${label}</span> 
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <span style="font-size: 12px; color: rgba(255,255,255,0.3);">${timeStr}</span>
-                    <button onclick="deleteHistoryItem(${index})" style="background:transparent; border:none; color:var(--danger); padding:0; cursor:pointer; display:flex; align-items:center;">
-                        <i data-lucide="trash-2" class="lucide-sm"></i>
-                    </button>
+        const wDiff = getDiff(entry.weight, prev ? prev.weight : null, 'kg');
+        const waDiff = getDiff(entry.waist, prev ? prev.waist : null, 'cm');
+        const hDiff = getDiff(entry.hips, prev ? prev.hips : null, 'cm');
+        const aDiff = getDiff(entry.arms, prev ? prev.arms : null, 'cm');
+        
+        const dateObj = new Date(entry.date);
+        const dateStr = dateObj.toLocaleDateString('lt-LT', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        
+        const deleteBtn = `<button onclick="deleteBodyProgressItem(${idx})" style="background:transparent; border:none; color:var(--danger); padding:0; cursor:pointer; display:flex; align-items:center;"><i data-lucide="trash-2" class="lucide-sm" style="width:14px; height:14px;"></i></button>`;
+        
+        let rowHtml = `
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
+                <div class="flex justify-between items-center" style="border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom:4px; margin-bottom:4px;">
+                    <span style="font-size: 11px; font-weight:700; color: var(--accent);">${dateStr}</span>
+                    ${deleteBtn}
                 </div>
-            `;
-            container.appendChild(minorCard);
-            return;
-        }
-
-        const card = document.createElement('div');
-        card.className = 'history-item';
-        card.style.borderLeftColor = cardColor;
-        
-        let setsCount = 0;
-        if(item.exercises) {
-            item.exercises.forEach(e => {
-                if(e.weights && e.weights.join('').length > 0) setsCount++;
-            });
-        }
-        
-        card.innerHTML = `
-            <div class="flex justify-between items-center mb-1">
-                <strong style="font-size: 16px; color: ${cardColor}; display:flex; align-items:center; gap:6px;">
-                    <i data-lucide="${iconName}" class="lucide-sm"></i>
-                    ${typeName}
-                </strong>
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <span style="font-size: 12px; color: var(--text-dim);">${timeStr}</span>
-                    <button onclick="deleteHistoryItem(${index})" style="background:transparent; border:none; color:var(--danger); padding:0; cursor:pointer; display:flex; align-items:center;">
-                        <i data-lucide="trash-2" class="lucide-sm"></i>
-                    </button>
+                <div class="flex gap-2" style="font-size:12px; justify-content: space-between; flex-wrap: wrap;">
+                    ${entry.weight !== null && entry.weight !== undefined ? `<span style="white-space:nowrap;">Svoris: <strong>${entry.weight} kg</strong>${wDiff}</span>` : ''}
+                    ${entry.waist !== null && entry.waist !== undefined ? `<span style="white-space:nowrap;">Liemuo: <strong>${entry.waist} cm</strong>${waDiff}</span>` : ''}
+                    ${entry.hips !== null && entry.hips !== undefined ? `<span style="white-space:nowrap;">Klubai: <strong>${entry.hips} cm</strong>${hDiff}</span>` : ''}
+                    ${entry.arms !== null && entry.arms !== undefined ? `<span style="white-space:nowrap;">Rankos: <strong>${entry.arms} cm</strong>${aDiff}</span>` : ''}
                 </div>
             </div>
-            ${item.exercises && item.exercises.length > 0 ? `<div style="font-size: 13px; color: var(--text-dim);">Aktyvūs pratimai: ${setsCount}/${item.exercises.length}</div>` : ''}
         `;
-        container.appendChild(card);
+        renderedList.unshift(rowHtml);
     });
     
-    if(window.lucide) lucide.createIcons();
+    container.innerHTML = renderedList.join('');
+    if (window.lucide) lucide.createIcons();
+}
+
+function deleteBodyProgressItem(sortedIdx) {
+    let bodyProgress = JSON.parse(localStorage.getItem('body_progress') || '[]');
+    const sorted = [...bodyProgress].sort((a, b) => new Date(a.date) - new Date(b.date));
+    const targetItem = sorted[sortedIdx];
+    
+    bodyProgress = bodyProgress.filter(h => h.date !== targetItem.date);
+    localStorage.setItem('body_progress', JSON.stringify(bodyProgress));
+    
+    if (navigator.vibrate) navigator.vibrate(50);
+    renderHistory();
 }
 
 function markSetDone(checkbox, isWarmupOrCooldown = false) {

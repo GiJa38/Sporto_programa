@@ -262,31 +262,68 @@
 
     <!-- HISTORY VIEW -->
     <div id="history-view" class="view-section hidden">
-        <h2 class="section-title text-success mb-3"><i data-lucide="check-square"></i> Jūsų Pasiekimai</h2>
-        <!-- STATISTIKOS SUVESTINĖ -->
+        <h2 class="section-title text-success mb-3"><i data-lucide="bar-chart-2"></i> Kūno Progresas</h2>
+        
+        <!-- CALORIES & GENERAL STATS CARD -->
         <div class="glass-card mb-3" style="padding: 14px; background: rgba(50, 215, 75, 0.05); border-color: rgba(50, 215, 75, 0.15);">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: center;">
-                <div style="background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                    <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Viso įrašų</div>
-                    <div id="stats-total-workouts" style="font-size: 20px; font-weight: 700; color: var(--success); margin-top: 4px;">0</div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="fw-700" style="font-size: 13px; color: var(--success); display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="zap" class="lucide-sm"></i> Energijos Sąnaudos
+                </span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center;">
+                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 9px; color: var(--text-dim); text-transform: uppercase;">Šią savaitę sudeginta</div>
+                    <div id="stats-calories-week" style="font-size: 18px; font-weight: 700; color: var(--warning); margin-top: 4px;">0 kcal</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
-                    <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Užbaigtų dienų</div>
-                    <div id="stats-completed-days" style="font-size: 20px; font-weight: 700; color: var(--warning); margin-top: 4px;">0</div>
+                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 9px; color: var(--text-dim); text-transform: uppercase;">Šį mėnesį sudeginta</div>
+                    <div id="stats-calories-month" style="font-size: 18px; font-weight: 700; color: var(--success); margin-top: 4px;">0 kcal</div>
                 </div>
             </div>
         </div>
 
-
-        <div id="history-container" class="flex-col mb-3">
-            <!-- Items Injected Here via app.js -->
+        <!-- NEW BODY MATAVIMAI FORM -->
+        <div class="glass-card mb-3" style="padding: 14px;">
+            <h3 class="section-title text-gradient" style="font-size: 14px; margin-bottom: 10px; font-weight: 700;"><i data-lucide="scale"></i> Nauji Kūno Matavimai</h3>
+            <div class="form-row" style="margin-bottom: 8px; gap: 8px;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size: 9px;">Svoris (kg)</label>
+                    <input type="number" id="input-weight" class="form-input" step="0.1" placeholder="Pvz. 65.4" style="padding: 8px 10px; font-size:13px; height: 36px;">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size: 9px;">Liemuo (cm)</label>
+                    <input type="number" id="input-waist" class="form-input" step="0.5" placeholder="Pvz. 72" style="padding: 8px 10px; font-size:13px; height: 36px;">
+                </div>
+            </div>
+            <div class="form-row" style="margin-bottom: 8px; gap: 8px;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size: 9px;">Klubai (cm)</label>
+                    <input type="number" id="input-hips" class="form-input" step="0.5" placeholder="Pvz. 96" style="padding: 8px 10px; font-size:13px; height: 36px;">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size: 9px;">Rankos (cm)</label>
+                    <input type="number" id="input-arms" class="form-input" step="0.5" placeholder="Pvz. 28" style="padding: 8px 10px; font-size:13px; height: 36px;">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="logBodyProgress()" style="padding: 10px; font-size:13px; margin-top: 10px; border-radius:8px;">
+                <i data-lucide="plus" class="lucide-sm"></i> Išsaugoti Matavimus
+            </button>
         </div>
-        
-        <div class="glass-card" style="border: 1px dashed var(--card-border); background: transparent;">
-            <p class="text-dim mb-3" style="font-size: 12px; text-align: center;">Visi duomenys saugomi lokaliai telefone.</p>
+
+        <!-- POKYČIŲ ISTORIJA -->
+        <div class="glass-card mb-3" style="padding: 14px;">
+            <h3 class="section-title" style="font-size: 14px; margin-bottom: 10px; font-weight: 700;"><i data-lucide="trending-up"></i> Kūno pokyčių istorija</h3>
+            <div id="measurements-history-container" class="flex-col" style="gap: 8px;">
+                <!-- Logs injected dynamically -->
+            </div>
+        </div>
+
+        <div class="glass-card" style="border: 1px dashed var(--card-border); background: transparent; padding: 10px; margin-bottom: 16px;">
+            <p class="text-dim mb-2" style="font-size: 11px; text-align: center;">Duomenų atsarginė kopija:</p>
             <div class="flex gap-2">
-                <button onclick="exportData()" class="btn btn-outline" style="flex: 1;"><i data-lucide="download" class="lucide-sm"></i> Atsisiųsti</button>
-                <label class="btn btn-outline" style="flex: 1; text-align: center; cursor: pointer;">
+                <button onclick="exportData()" class="btn btn-outline" style="flex: 1; padding: 10px; font-size:12px;"><i data-lucide="download" class="lucide-sm"></i> Atsisiųsti</button>
+                <label class="btn btn-outline" style="flex: 1; text-align: center; cursor: pointer; padding: 10px; font-size:12px;">
                     <i data-lucide="upload" class="lucide-sm"></i> Įkelti
                     <input type="file" onchange="importData(event)" accept=".json" style="display: none;">
                 </label>
