@@ -806,13 +806,46 @@ function getCaloriesStats() {
     let caloriesWeek = 0;
     let caloriesMonth = 0;
     
+    const morningCount = workouts.RYTINE ? workouts.RYTINE.length : 10;
+    const eveningCount = workouts.VAKARINE ? workouts.VAKARINE.length : 8;
+
     workoutHistory.forEach(h => {
         const logDate = new Date(h.date);
         let kcal = 0;
-        if (h.type === 'Rytinė mankšta') kcal = 50;
-        else if (h.type === 'Vakarinė mankšta') kcal = 30;
-        else if (h.type.startsWith('NAMAI')) kcal = 250;
         
+        if (h.type === 'Rytinė mankšta') {
+            kcal = morningCount * 5; // 5 kcal per exercise
+        } else if (h.type === 'Vakarinė mankšta') {
+            kcal = eveningCount * 4; // 4 kcal per exercise
+        } else if (h.type.startsWith('NAMAI')) {
+            if (h.exercises && h.exercises.length > 0) {
+                h.exercises.forEach(exLog => {
+                    const exDef = workouts[h.type] ? workouts[h.type].find(e => e.name === exLog.name) : null;
+                    const isWeight = exDef ? exDef.isWeight : false;
+                    const setsCount = exLog.weights ? exLog.weights.length : 3;
+                    
+                    if (exLog.weights && exLog.weights.length > 0) {
+                        exLog.weights.forEach(wStr => {
+                            const w = parseFloat(wStr) || 0;
+                            // 8 kcal base per set, add (weight * 0.4) kcal
+                            kcal += 8 + (isWeight ? w * 0.4 : 0);
+                        });
+                    } else {
+                        kcal += setsCount * 8;
+                    }
+                });
+            } else {
+                // Fallback for quick log based on current exercise layout
+                const currentList = workouts[h.type] || [];
+                currentList.forEach(ex => {
+                    kcal += (ex.sets || 3) * 8;
+                });
+            }
+        }
+        
+        // Round to nearest integer
+        kcal = Math.round(kcal);
+
         if (logDate >= startOfWeek) {
             caloriesWeek += kcal;
         }
